@@ -1,7 +1,7 @@
 {
     "name": "dcs/propertywindow-engine",
     "description": "Client for property window",
-    "license": "proprietary",
+    "license": "MIT",
     "type": "package",
     "authors": [
       {
