@@ -7,15 +7,14 @@ Client for property window agent websites
 
 > Before anything, you need to make sure you have [Composer](https://getcomposer.org) properly setup in your environment.
 
-* Clone this repository
+If you don't have a composer.json in your project yet, run:
 ```bash
-$ git clone git@bitbucket.org:geurtsmarc/propertywindow-client.git
+$ composer init
 ```
 
-* Go to project root and run composer install 
+* Go to project root and include this repository
 ```bash
-$ cd propertywindow-client
-$ composer install
+$ composer require propertywindow-client
 ```
 
 * Setup authentication details
