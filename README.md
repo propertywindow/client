@@ -1,4 +1,4 @@
-Property Window Client [![by](https://img.shields.io/badge/by-%40marcgeurts-ff69b4.svg?style=flat-square)](https://bitbucket.org/geurtsmarc)
+Property Window Client [![by](https://img.shields.io/badge/by-%40datacomputerservices-ff69b4.svg?style=flat-square)](https://bitbucket.org/geurtsmarc)
 ========================
 
 Client for property window agent websites
