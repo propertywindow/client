@@ -19,7 +19,13 @@ $ composer init
 $ composer require propertywindow/client
 ```
 
-* Setup authentication details
+## Usage
+
+* Make call with authentication details
+```php
+$client = new Client('host', 'apikey', 'apisecret','userid');
+$client->getProperty('id')
+```
 
 
 
