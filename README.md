@@ -14,7 +14,7 @@ $ composer init
 
 * Go to project root and include this repository
 ```bash
-$ composer require propertywindow-client
+$ composer require dcs/propertywindow-client
 ```
 
 * Setup authentication details
