@@ -7,9 +7,14 @@ Client for property window agent websites
 
 > Before anything, you need to make sure you have [Composer](https://getcomposer.org) properly setup in your environment.
 
-* Composer install 
-* Build and run the containers:
+* Clone this repository
 ```bash
+$ git clone git@bitbucket.org:geurtsmarc/propertywindow-client.git
+```
+
+* Go to project root and run composer install 
+```bash
+$ cd propertywindow-client
 $ composer install
 ```
 
