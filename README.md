@@ -7,14 +7,16 @@ Client for property window agent websites
 
 > Before anything, you need to make sure you have [Composer](https://getcomposer.org) properly setup in your environment.
 
-If you don't have a composer.json in your project yet, run:
+* Go to project root in your console
+
+* If you don't have a composer.json in your project yet, run:
 ```bash
 $ composer init
 ```
 
-* Go to project root and include this repository
+* Include this repository
 ```bash
-$ composer require dcs/propertywindow-client
+$ composer require propertywindow/client
 ```
 
 * Setup authentication details
