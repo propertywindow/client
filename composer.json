@@ -1,0 +1,23 @@
+{
+    "name": "dcs/propertywindow-engine",
+    "description": "Client for property window",
+    "license": "proprietary",
+    "type": "package",
+    "authors": [
+      {
+      "name": "Marc Geurts",
+      "email": "geurtsmarc@hotmail.com"
+      }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.1.4",
+        "symfony/symfony": "3.3.*",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+  ]
+}
