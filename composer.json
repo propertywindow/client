@@ -1,6 +1,6 @@
 {
     "name": "propertywindow/client",
-    "description": "Client for property window",
+    "description": "Client for property window agents",
     "license": "MIT",
     "type": "package",
     "authors": [
