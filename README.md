@@ -9,7 +9,7 @@ Client for property window agent websites
 
 * Go to project root in your console
 
-* If you don't have a composer.json in your project yet, run:
+* If you don't have a composer.json in your project yet:
 ```bash
 $ composer init
 ```
