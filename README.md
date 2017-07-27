@@ -21,11 +21,21 @@ $ composer require propertywindow/client
 
 ## Usage
 
-* Make call with authentication details
+* Setup client with authentication details
 ```php
+<?php 
+use PropertyWindow\Properties\Client;
+
 $client = new Client('host', 'apikey', 'apisecret','userid');
+```
+
+* Get Property
+```php
 $client->getProperty('id')
 ```
 
-
+* Get Properties
+```php
+$client->getProperties('limit', 'offset')
+```
 
