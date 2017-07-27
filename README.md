@@ -28,15 +28,13 @@ use PropertyWindow\Properties\Client;
 $client = new Client('host', 'apikey', 'apisecret','userid');
 ```
 
-* Get Property
-
+* Get property
 ```php
-$client->getProperty('id')
+$client->getProperty('id');
 ```
 
-* Get Properties
-
+* Get properties
 ```php
-$client->getProperties('limit', 'offset')
+$client->getProperties('limit', 'offset');
 ```
 
