@@ -1,4 +1,4 @@
-Property Window Client [![by](https://img.shields.io/badge/by-%40datacomputerservices-ff69b4.svg?style=flat-square)](https://bitbucket.org/geurtsmarc)
+Property Window Client [![by](https://img.shields.io/badge/by-%40datacomputerservices-ff69b4.svg?style=flat-square)](https://bitbucket.org/datacomputerservices)
 ========================
 
 Client for property window agent websites
@@ -22,18 +22,20 @@ $ composer require propertywindow/client
 ## Usage
 
 * Setup client with authentication details
+
 ```php
 use PropertyWindow\Properties\Client;
-
 $client = new Client('host', 'apikey', 'apisecret','userid');
 ```
 
 * Get Property
+
 ```php
 $client->getProperty('id')
 ```
 
 * Get Properties
+
 ```php
 $client->getProperties('limit', 'offset')
 ```
