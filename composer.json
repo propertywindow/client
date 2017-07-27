@@ -1,5 +1,5 @@
 {
-    "name": "dcs/propertywindow-engine",
+    "name": "dcs/propertywindow-client",
     "description": "Client for property window",
     "license": "MIT",
     "type": "package",
