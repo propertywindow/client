@@ -2,15 +2,27 @@
 
 namespace PropertyWindow\Properties;
 
-use Guzzle\Http\Client as GuzzleClient;
+use PropertyWindow\Properties\Models\Property;
+use PropertyWindow\Property\Mapper;
 
+/**
+ * Class Client
+ */
 class Client
 {
+    public const PARSE_ERROR            = -32700;
+    public const INVALID_REQUEST        = -32600;
+    public const METHOD_NOT_FOUND       = -32601;
+    public const INVALID_PARAMS         = -32602;
+    public const INTERNAL_ERROR         = -32603;
+    public const EXCEPTION_ERROR        = -32604;
+    public const USER_NOT_AUTHENTICATED = -32000;
+
     /**
-     * @var GuzzleClient
+     * @var \GuzzleHttp\Client
      */
     private $client;
-    
+
     /**
      * @var string
      */
@@ -30,7 +42,7 @@ class Client
      * @var string
      */
     private $uri;
-    
+
     /**
      * @param string $uri
      * @param string $apiKey
@@ -39,110 +51,105 @@ class Client
      */
     public function __construct($uri, $apiKey, $apiSecret, $userId)
     {
-        $this->client = new GuzzleClient();
+        $this->client = new \GuzzleHttp\Client();
 
         $this->apiKey    = $apiKey;
         $this->apiSecret = $apiSecret;
         $this->userId    = $userId;
         $this->uri       = $uri;
     }
-    
+
     /**
      * @param int $id
      *
-     * @return Notification
-     *
-     * @throws Models\Exceptions\Exception
-     * @throws CouldNotFindPropertyException
+     * @return Property
+     * @throws \Exception
      */
-    public function getProperty($id)
+    public function getProperty($id): Property
     {
-        $parameters = array('id' => $id);
+        $parameters = ['id' => $id];
 
         $response = $this->call('getProperty', $parameters);
 
         return Mapper::toProperty($response);
     }
-    
+
     /**
      * @param string $operation
      * @param array  $parameters
      *
      * @return array|null
-     *
-     * @throws PropertyException
+     * @throws \Exception
      */
-    private function call($operation, array $parameters = array())
+    private function call($operation, array $parameters = [])
     {
         $timestamp = time();
         $signature = hash_hmac("sha1", $timestamp . "-" . $this->userId, $this->apiSecret);
 
-        $payload = array(
+        $payload = [
             "user"      => $this->userId,
             "api"       => $this->apiKey,
             "timestamp" => $timestamp,
             "signature" => $signature,
-        );
+        ];
 
         $payloadJson = json_encode($payload);
         if ($payloadJson === null) {
-            throw new ClientException("Could not encode request headers");
+            throw new \Exception("Could not encode request headers");
         }
 
         $payloadEncoded = base64_encode($payloadJson);
 
         $id   = uniqid();
         $body = json_encode(
-            array(
+            [
                 "jsonrpc" => "2.0",
                 "method"  => $operation,
                 "params"  => $parameters,
                 "id"      => $id,
-            )
+            ]
         );
 
         if ($body === null) {
-            throw new ClientException("Could not encode request body");
+            throw new \Exception("Could not encode request body");
         }
 
-        $request = $this->client->post($this->uri, array("Authorization" => "Basic $payloadEncoded"), $body);
+        $request = $this->client->post($this->uri, ["Authorization" => "Basic $payloadEncoded"], $body);
 
         try {
             $response = $this->client->send($request);
-        } catch (Exception $ex) {
-            throw new ServerException($ex->getMessage(), 0, $ex);
+        } catch (\Exception $ex) {
+            throw new \Exception($ex->getMessage(), 0, $ex);
         }
 
         $decoded = json_decode($response->getBody(true), true);
 
         if ($decoded === null) {
-            throw new ServerException("Could not parse response from server");
+            throw new \Exception("Could not parse response from server");
         }
 
         if (!empty($decoded["error"])) {
             $message = $decoded["error"]["message"];
             switch ($decoded["error"]["code"]) {
                 case self::PARSE_ERROR: // Parse error
-                    throw new ServerException("Could not parse json request, message: $message");
+                    throw new \Exception("Could not parse json request, message: $message");
                 case self::INVALID_REQUEST: // Invalid request
-                    throw new ServerException("Invalid request from client, message: $message");
+                    throw new \Exception("Invalid request from client, message: $message");
                 case self::METHOD_NOT_FOUND: // Method not found
-                    throw new ServerException("Method does not exist, message: $message");
+                    throw new \Exception("Method does not exist, message: $message");
                 case self::INVALID_PARAMS: // Invalid params
-                    throw new ServerException("Invalid method parameters, message: $message");
+                    throw new \Exception("Invalid method parameters, message: $message");
                 case self::INTERNAL_ERROR: // Internal error
-                    throw new ServerException("Server error, message: $message");
+                    throw new \Exception("Server error, message: $message");
                 case self::USER_NOT_AUTHENTICATED:
-                    throw new ServerException("Could not authenticate user, message: $message");
-                case self::NOTIFICATION_NOT_FOUND:
-                    throw new CouldNotFindPropertyException();
+                    throw new \Exception("Could not authenticate user, message: $message");
                 default:
-                    throw new ServerException("Unexpected error, message: $message");
+                    throw new \Exception("Unexpected error, message: $message");
             }
         }
 
         if ($decoded["id"] !== $id) {
-            throw new ServerException("Request and response identifiers don't match");
+            throw new \Exception("Request and response identifiers don't match");
         }
 
 

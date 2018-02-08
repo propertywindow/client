@@ -1,11 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace PropertyWindow\Property;
 
-use PropertyWindow\Property\Models\Exceptions\ResponseMappingException;
-use PropertyWindow\Property\Models\Notification;
+use PropertyWindow\Properties\Models\Property;
 
-
+/**
+ * Class Mapper
+ */
 class Mapper
 {
     /**
@@ -15,25 +17,26 @@ class Mapper
      */
     public static function toProperty(array $input)
     {
-        return new Property(
-            $input['id'],
-            $input['street'],
-            $input['house_number'],
-        );
+        $property = new Property();
+
+        $property->setId($input['id']);
+        $property->setStreet($input['street']);
+        $property->setHouseNumber($input['house_number']);
+
+        return $property;
     }
 
     /**
      * @param array $input
      *
      * @return Property[]
-     * @throws ResponseMappingException
      */
     public static function toProperties(array $input)
     {
-        $result = array();
+        $result = [];
 
-        foreach ($input as $in) {
-            $result[] = self::toProperty($in);
+        foreach ($input as $value) {
+            $result[] = self::toProperty($value);
         }
 
         return $result;
