@@ -71,13 +71,11 @@ class Client
      */
     public function call(string $path, string $operation, array $parameters = []): ?array
     {
-        $body = json_encode(
-            [
-                "jsonrpc" => "2.0",
-                "method"  => $operation,
-                "params"  => $parameters,
-            ]
-        );
+        $body = [
+            "jsonrpc" => "2.0",
+            "method"  => $operation,
+            "params"  => $parameters,
+        ];
 
         if (empty($body)) {
             throw new \Exception("Could not encode request body");
@@ -129,7 +127,7 @@ class Client
      */
     private function checkResponse(array $decoded)
     {
-        if ($decoded === null) {
+        if (empty($decoded)) {
             throw new \Exception("Could not parse response from server");
         }
 
