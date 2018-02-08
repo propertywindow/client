@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PropertyWindow\Properties;
+namespace PropertyWindow;
 
 /**
  * Class Client

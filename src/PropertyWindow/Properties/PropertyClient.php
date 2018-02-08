@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Properties;
 
+use PropertyWindow\Client;
 use PropertyWindow\Properties\Model\Property;
 
 /**

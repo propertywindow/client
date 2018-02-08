@@ -1,7 +1,7 @@
-Property Window Client [![by](https://img.shields.io/badge/by-%40datacomputerservices-ff69b4.svg?style=flat-square)](https://bitbucket.org/datacomputerservices)
+Property Window Client [![by](https://img.shields.io/badge/by-%40propertywindow-ff69b4.svg?style=flat-square)](https://github.com/propertywindow)
 ========================
 
-Client for property window agent websites
+PHP Client for property window agent websites
 
 ## Installation
 
@@ -25,7 +25,7 @@ $ composer require propertywindow/client
 
 ```php
 use PropertyWindow\Client;
-$client = new Client('host', 'apikey', 'apisecret','userid');
+$client = new Client('apikey', 'apisecret', 'userid');
 ```
 
 * Get property

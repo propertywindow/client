@@ -15,7 +15,7 @@ class Mapper
      *
      * @return Property
      */
-    public static function toProperty(array $input)
+    public static function toProperty(array $input): Property
     {
         $property = new Property();
 
@@ -31,7 +31,7 @@ class Mapper
      *
      * @return Property[]
      */
-    public static function toProperties(array $input)
+    public static function toProperties(array $input): array
     {
         $result = [];
 

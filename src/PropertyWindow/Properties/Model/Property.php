@@ -26,15 +26,15 @@ class Property
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -50,7 +50,7 @@ class Property
     /**
      * @param string $street
      */
-    public function setStreet(string $street)
+    public function setStreet(string $street): void
     {
         $this->street = $street;
     }
@@ -66,7 +66,7 @@ class Property
     /**
      * @param string $houseNumber
      */
-    public function setHouseNumber(string $houseNumber)
+    public function setHouseNumber(string $houseNumber): void
     {
         $this->houseNumber = $houseNumber;
     }
