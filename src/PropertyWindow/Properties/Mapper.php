@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Property;
 
-use PropertyWindow\Models\Property;
+use PropertyWindow\Property\Model\Property;
 
 /**
  * Class Mapper
