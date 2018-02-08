@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace PropertyWindow\Property\Model;
+namespace PropertyWindow\Properties\Model;
 
 /**
  * Class Property

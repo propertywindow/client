@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace PropertyWindow\Property;
+namespace PropertyWindow\Properties;
 
-use PropertyWindow\Property\Model\Property;
+use PropertyWindow\Properties\Model\Property;
 
 /**
  * Class Mapper

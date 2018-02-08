@@ -1,10 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\Models;
+namespace Tests\Properties\Model;
 
 use PHPUnit\Framework\TestCase;
-use PropertyWindow\Models\Property;
+use PropertyWindow\Properties\Model\Property;
 
 /**
  *  Property Test

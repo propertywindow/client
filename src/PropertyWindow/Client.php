@@ -1,10 +1,7 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace PropertyWindow\Properties;
-
-use PropertyWindow\Models\Property;
-use PropertyWindow\Property\Mapper;
 
 /**
  * Class Client
@@ -40,56 +37,40 @@ class Client
     private $userId;
 
     /**
-     * @var string
-     */
-    private $uri;
-
-    /**
-     * @param string $uri
      * @param string $apiKey
      * @param string $apiSecret
      * @param int    $userId
+     *
+     * @throws \Exception
      */
-    public function __construct($uri, $apiKey, $apiSecret, $userId)
+    public function __construct($apiKey, $apiSecret, $userId)
     {
-        //todo: no need for url set hard with env
-
-        $this->client = new \GuzzleHttp\Client();
-
         $this->apiKey    = $apiKey;
         $this->apiSecret = $apiSecret;
         $this->userId    = $userId;
-        $this->uri       = $uri;
+
+        $token = json_encode($this->generateToken());
+
+        $this->client = new \GuzzleHttp\Client([
+            'base_uri' => 'https://engine.propertywindow.nl',
+            'headers'  => [
+                'Accept'        => 'application/json',
+                'Authorization' => 'Authorization ' . $token,
+                'Content-Type'  => 'application/json',
+            ],
+        ]);
     }
 
     /**
-     * @param int $id
-     *
-     * @return Property
-     * @throws \Exception
-     */
-    public function getProperty($id): Property
-    {
-        // todo: add property to own namespace and extend from client (function toProperty etc)
-
-        $parameters = ['id' => $id];
-
-        $response = $this->call('getProperty', $parameters);
-
-        return Mapper::toProperty($response);
-    }
-
-    /**
+     * @param string $path
      * @param string $operation
      * @param array  $parameters
      *
      * @return array|null
      * @throws \Exception
      */
-    private function call($operation, array $parameters = [])
+    public function call(string $path, string $operation, array $parameters = []): ?array
     {
-        $header = json_encode($this->authenticationHeader());
-
         $body = json_encode(
             [
                 "jsonrpc" => "2.0",
@@ -102,15 +83,7 @@ class Client
             throw new \Exception("Could not encode request body");
         }
 
-        //        $request = $this->client->post($this->uri,
-        //            [
-        //                'headers' => [
-        //                    'Authorization' => 'Basic ' . $payloadEncoded,
-        //                ],
-        //            ],
-        //            $body);
-
-        $request = $this->client->request('POST', $this->uri, $body);
+        $request = $this->client->request('POST', $path, $body);
 
         try {
             $response = $this->client->send($request);
@@ -129,7 +102,7 @@ class Client
      * @return string
      * @throws \Exception
      */
-    private function authenticationHeader(): string
+    private function generateToken(): string
     {
         $timestamp = time();
         $signature = hash_hmac("sha1", $timestamp . "-" . $this->userId, $this->apiSecret);
