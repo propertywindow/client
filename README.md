@@ -24,7 +24,7 @@ $ composer require propertywindow/client
 * Setup client with authentication details
 
 ```php
-use PropertyWindow\Properties\Client;
+use PropertyWindow\Client;
 $client = new Client('host', 'apikey', 'apisecret','userid');
 ```
 

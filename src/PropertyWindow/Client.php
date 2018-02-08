@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace PropertyWindow\Properties;
 
-use PropertyWindow\Properties\Models\Property;
+use PropertyWindow\Models\Property;
 use PropertyWindow\Property\Mapper;
 
 /**
@@ -67,6 +68,8 @@ class Client
      */
     public function getProperty($id): Property
     {
+        // todo: add property to own namespace and extend from client (function toProperty etc)
+
         $parameters = ['id' => $id];
 
         $response = $this->call('getProperty', $parameters);
@@ -94,27 +97,35 @@ class Client
         ];
 
         $payloadJson = json_encode($payload);
-        if ($payloadJson === null) {
+        if (empty($payloadJson)) {
             throw new \Exception("Could not encode request headers");
         }
 
         $payloadEncoded = base64_encode($payloadJson);
 
-        $id   = uniqid();
         $body = json_encode(
             [
                 "jsonrpc" => "2.0",
                 "method"  => $operation,
                 "params"  => $parameters,
-                "id"      => $id,
             ]
         );
 
-        if ($body === null) {
+        if (empty($body)) {
             throw new \Exception("Could not encode request body");
         }
 
-        $request = $this->client->post($this->uri, ["Authorization" => "Basic $payloadEncoded"], $body);
+        //        $request = $this->client->post($this->uri,
+        //            [
+        //                'headers' => [
+        //                    'Authorization' => 'Basic ' . $payloadEncoded,
+        //                ],
+        //            ],
+        //            $body);
+
+
+        $request = $this->client->request('POST', $this->uri, $body);
+
 
         try {
             $response = $this->client->send($request);
@@ -122,7 +133,7 @@ class Client
             throw new \Exception($ex->getMessage(), 0, $ex);
         }
 
-        $decoded = json_decode($response->getBody(true), true);
+        $decoded = json_decode($response->getBody(), true);
 
         if ($decoded === null) {
             throw new \Exception("Could not parse response from server");
@@ -147,11 +158,6 @@ class Client
                     throw new \Exception("Unexpected error, message: $message");
             }
         }
-
-        if ($decoded["id"] !== $id) {
-            throw new \Exception("Request and response identifiers don't match");
-        }
-
 
         return array_key_exists('result', $decoded) ? $decoded["result"] : null;
     }
