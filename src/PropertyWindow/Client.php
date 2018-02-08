@@ -52,6 +52,8 @@ class Client
      */
     public function __construct($uri, $apiKey, $apiSecret, $userId)
     {
+        //todo: no need for url set hard with env
+
         $this->client = new \GuzzleHttp\Client();
 
         $this->apiKey    = $apiKey;
@@ -86,22 +88,7 @@ class Client
      */
     private function call($operation, array $parameters = [])
     {
-        $timestamp = time();
-        $signature = hash_hmac("sha1", $timestamp . "-" . $this->userId, $this->apiSecret);
-
-        $payload = [
-            "user"      => $this->userId,
-            "api"       => $this->apiKey,
-            "timestamp" => $timestamp,
-            "signature" => $signature,
-        ];
-
-        $payloadJson = json_encode($payload);
-        if (empty($payloadJson)) {
-            throw new \Exception("Could not encode request headers");
-        }
-
-        $payloadEncoded = base64_encode($payloadJson);
+        $header = json_encode($this->authenticationHeader());
 
         $body = json_encode(
             [
@@ -123,9 +110,7 @@ class Client
         //            ],
         //            $body);
 
-
         $request = $this->client->request('POST', $this->uri, $body);
-
 
         try {
             $response = $this->client->send($request);
@@ -135,6 +120,42 @@ class Client
 
         $decoded = json_decode($response->getBody(), true);
 
+        $this->checkResponse($decoded);
+
+        return array_key_exists('result', $decoded) ? $decoded["result"] : null;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function authenticationHeader(): string
+    {
+        $timestamp = time();
+        $signature = hash_hmac("sha1", $timestamp . "-" . $this->userId, $this->apiSecret);
+
+        $payload = [
+            "user"      => $this->userId,
+            "api"       => $this->apiKey,
+            "timestamp" => $timestamp,
+            "signature" => $signature,
+        ];
+
+        $payloadJson = json_encode($payload);
+        if (empty($payloadJson)) {
+            throw new \Exception("Could not encode request headers");
+        }
+
+        return base64_encode($payloadJson);
+    }
+
+    /**
+     * @param array $decoded
+     *
+     * @throws \Exception
+     */
+    private function checkResponse(array $decoded)
+    {
         if ($decoded === null) {
             throw new \Exception("Could not parse response from server");
         }
@@ -142,15 +163,15 @@ class Client
         if (!empty($decoded["error"])) {
             $message = $decoded["error"]["message"];
             switch ($decoded["error"]["code"]) {
-                case self::PARSE_ERROR: // Parse error
+                case self::PARSE_ERROR:
                     throw new \Exception("Could not parse json request, message: $message");
-                case self::INVALID_REQUEST: // Invalid request
+                case self::INVALID_REQUEST:
                     throw new \Exception("Invalid request from client, message: $message");
-                case self::METHOD_NOT_FOUND: // Method not found
+                case self::METHOD_NOT_FOUND:
                     throw new \Exception("Method does not exist, message: $message");
-                case self::INVALID_PARAMS: // Invalid params
+                case self::INVALID_PARAMS:
                     throw new \Exception("Invalid method parameters, message: $message");
-                case self::INTERNAL_ERROR: // Internal error
+                case self::INTERNAL_ERROR:
                     throw new \Exception("Server error, message: $message");
                 case self::USER_NOT_AUTHENTICATED:
                     throw new \Exception("Could not authenticate user, message: $message");
@@ -158,8 +179,5 @@ class Client
                     throw new \Exception("Unexpected error, message: $message");
             }
         }
-
-        return array_key_exists('result', $decoded) ? $decoded["result"] : null;
     }
-
 }
