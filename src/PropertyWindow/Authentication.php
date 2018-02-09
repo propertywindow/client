@@ -53,27 +53,11 @@ class Authentication
      */
     protected function generateToken(string $email, string $password)
     {
-        $client = new \GuzzleHttp\Client([
-            'headers' => ['Content-Type' => 'application/json'],
-        ]);
-
-        $response = $client->post($this->baseUrl . '/authentication/login',
-            [
-                'body' => json_encode(
-                    [
-                        'jsonrpc' => '2.0',
-                        'method'  => 'login',
-                        'params'  => [
-                            "email"    => $email,
-                            "password" => $password,
-                        ],
-                    ]
-                ),
-            ]
-        );
-
-        $decoded = json_decode($response->getBody()->getContents(), true);
-        $result  = array_key_exists('result', $decoded) ? $decoded["result"] : null;
+        $client   = new \GuzzleHttp\Client();
+        $body     = $this->createBody('login', ['email' => $email, 'password' => $password]);
+        $response = $client->post($this->baseUrl . '/authentication/login', $body);
+        $decoded  = json_decode($response->getBody()->getContents(), true);
+        $result   = array_key_exists('result', $decoded) ? $decoded["result"] : null;
 
         if (array_key_exists('error', $decoded)) {
             throw new \Exception($decoded['error']['message']);

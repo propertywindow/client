@@ -100,6 +100,6 @@ class Client extends Authentication
     {
         $response = $this->call('/property/subtype', 'getSubTypes');
 
-        return SubTypeMapper::toSubTypes(...$response);
+        return SubTypeMapper::toSubTypes($response);
     }
 }

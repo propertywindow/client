@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use PropertyWindow\Client;
 use PropertyWindow\Properties\Property;
 use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\Types\Type;
 
 /**
  *  Client Test
@@ -23,8 +24,7 @@ class ClientTest extends TestCase
      */
     public function setUp(): void
     {
-        // todo: mock
-
+        // todo: Mock connection
         $this->client = new Client('michael@annan.co.uk', 'michael');
 
         $this->assertInstanceOf(Client::class, $this->client);
@@ -56,6 +56,7 @@ class ClientTest extends TestCase
 
         $this->assertEquals(200, $this->client->getStatusCode());
         $this->assertInstanceOf(SubType::class, $subType);
+        $this->assertInstanceOf(Type::class, $subType->getType());
     }
 
     public function tearDown()
