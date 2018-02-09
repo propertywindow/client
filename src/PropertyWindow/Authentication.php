@@ -10,14 +10,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class Authentication
 {
-    public const PARSE_ERROR            = -32700;
-    public const INVALID_REQUEST        = -32600;
-    public const METHOD_NOT_FOUND       = -32601;
-    public const INVALID_PARAMS         = -32602;
-    public const INTERNAL_ERROR         = -32603;
-    public const EXCEPTION_ERROR        = -32604;
-    public const USER_NOT_AUTHENTICATED = -32000;
-
     /**
      * @var string
      */
@@ -105,24 +97,8 @@ class Authentication
             throw new \Exception("Could not parse response from server");
         }
 
-        if (!empty($decoded["error"])) {
-            $message = $decoded["error"]["message"];
-            switch ($decoded["error"]["code"]) {
-                case self::PARSE_ERROR:
-                    throw new \Exception("Could not parse json request, message: $message");
-                case self::INVALID_REQUEST:
-                    throw new \Exception("Invalid request from client, message: $message");
-                case self::METHOD_NOT_FOUND:
-                    throw new \Exception("Method does not exist, message: $message");
-                case self::INVALID_PARAMS:
-                    throw new \Exception("Invalid method parameters, message: $message");
-                case self::INTERNAL_ERROR:
-                    throw new \Exception("Server error, message: $message");
-                case self::USER_NOT_AUTHENTICATED:
-                    throw new \Exception("Could not authenticate user, message: $message");
-                default:
-                    throw new \Exception("Unexpected error, message: $message");
-            }
+        if (array_key_exists('error', $decoded)) {
+            throw new \Exception($decoded['error']['message']);
         }
     }
 
