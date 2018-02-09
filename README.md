@@ -25,7 +25,7 @@ $ composer require propertywindow/client
 
 ```php
 use PropertyWindow\Client;
-$client = new Client('apikey', 'apisecret', 'userid');
+$client = new Client('username', 'password', 'userid');
 ```
 
 * Get property
@@ -38,3 +38,7 @@ $client->getProperty('id');
 $client->getProperties('limit', 'offset');
 ```
 
+* Get subtype
+```php
+$client->getSubType('id');
+```
