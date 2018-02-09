@@ -6,6 +6,7 @@ namespace Tests\PropertyWindow;
 use PHPUnit\Framework\TestCase;
 use PropertyWindow\Client;
 use PropertyWindow\Properties\Property;
+use PropertyWindow\SubTypes\SubType;
 
 /**
  *  Client Test
@@ -44,6 +45,17 @@ class ClientTest extends TestCase
 
         $this->assertEquals(200, $this->client->getStatusCode());
         $this->assertInstanceOf(Property::class, $property);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetSubType()
+    {
+        $subType = $this->client->getSubType(1);
+
+        $this->assertEquals(200, $this->client->getStatusCode());
+        $this->assertInstanceOf(SubType::class, $subType);
     }
 
     public function tearDown()
