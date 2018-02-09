@@ -1,4 +1,4 @@
-Property Window Client [![by](https://img.shields.io/badge/by-%40propertywindow-ff69b4.svg?style=flat-square)](https://github.com/propertywindow)
+Property Window Client [![by](https://img.shields.io/badge/by-%40propertywindow-ff69b4.svg?style=flat-square)](https://github.com/propertywindow) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/propertywindow/client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/propertywindow/client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/propertywindow/client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/build-status/master)
 ========================
 
 PHP Client for property window agent websites
@@ -36,9 +36,18 @@ $propertyWindow->getProperty('id');
 * Get properties
 ```php
 $propertyWindow->getProperties('limit', 'offset');
+
+foreach ($properties as $property) {
+    $street = $property->getStreet();
+}
 ```
 
 * Get subtype
 ```php
 $propertyWindow->getSubType('id');
+```
+
+* Get subtypes
+```php
+$propertyWindow->getSubTypes();
 ```
