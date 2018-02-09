@@ -3,6 +3,13 @@ declare(strict_types = 1);
 
 namespace PropertyWindow;
 
+use GuzzleHttp\Psr7\Response;
+use PropertyWindow\Properties\Property;
+use PropertyWindow\Properties\PropertyMapper;
+use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\SubTypes\SubTypeMapper;
+
+
 /**
  * Class Client
  */
@@ -37,16 +44,21 @@ class Client
     private $userId;
 
     /**
-     * @param string $apiKey
-     * @param string $apiSecret
+     * @var Response
+     */
+    private $response;
+
+    /**
+     * @param string $username
+     * @param string $password
      * @param int    $userId
      *
      * @throws \Exception
      */
-    public function __construct($apiKey, $apiSecret, $userId)
+    public function __construct(string $username, string $password, int $userId)
     {
-        $this->apiKey    = $apiKey;
-        $this->apiSecret = $apiSecret;
+        $this->apiKey    = $username;
+        $this->apiSecret = $password;
         $this->userId    = $userId;
 
         $token = json_encode($this->generateToken());
@@ -84,12 +96,12 @@ class Client
         $request = $this->client->request('POST', $path, $body);
 
         try {
-            $response = $this->client->send($request);
+            $this->response = $this->client->send($request);
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), 0, $ex);
         }
 
-        $decoded = json_decode($response->getBody(), true);
+        $decoded = json_decode($this->response->getBody(), true);
 
         $this->checkResponse($decoded);
 
@@ -150,5 +162,41 @@ class Client
                     throw new \Exception("Unexpected error, message: $message");
             }
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int
+    {
+        return $this->response->getStatusCode();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Property
+     * @throws \Exception
+     */
+    public function getProperty(int $id): Property
+    {
+        $parameters = ['id' => $id];
+        $response   = $this->call('/property', 'getProperty', $parameters);
+
+        return PropertyMapper::toProperty($response);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return SubType
+     * @throws \Exception
+     */
+    public function getSubType(int $id): SubType
+    {
+        $parameters = ['id' => $id];
+        $response   = $this->call('/property/subtype', 'getSubType', $parameters);
+
+        return SubTypeMapper::toSubType($response);
     }
 }

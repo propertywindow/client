@@ -1,24 +1,17 @@
 <?php
 declare(strict_types = 1);
 
-namespace PropertyWindow\SubTypes\Model;
-
-use PropertyWindow\Types\Model\Type;
+namespace PropertyWindow\Types;
 
 /**
- * Class SubType
+ * Class Type
  */
-class SubType
+class Type
 {
     /**
      * @var int
      */
     private $id;
-
-    /**
-     * @var Type
-     */
-    private $type;
 
     /**
      * @var string
@@ -45,22 +38,6 @@ class SubType
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Type
-     */
-    public function getType(): Type
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param Type $type
-     */
-    public function setType(Type $type): void
-    {
-        $this->type = $type;
     }
 
     /**

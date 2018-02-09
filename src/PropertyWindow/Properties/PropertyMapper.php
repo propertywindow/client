@@ -3,12 +3,10 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Properties;
 
-use PropertyWindow\Properties\Model\Property;
-
 /**
- * Class Mapper
+ * Class PropertyMapper
  */
-class Mapper
+class PropertyMapper
 {
     /**
      * @param array $input

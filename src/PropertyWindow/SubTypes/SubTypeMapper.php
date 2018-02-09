@@ -3,13 +3,12 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\SubTypes;
 
-use PropertyWindow\SubTypes\Model\SubType;
-use PropertyWindow\Types\Model\Type;
+use PropertyWindow\Types\Type;
 
 /**
- * Class Mapper
+ * Class SubTypeMapper
  */
-class Mapper
+class SubTypeMapper
 {
     /**
      * @param array $input
