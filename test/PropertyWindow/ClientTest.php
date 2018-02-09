@@ -24,7 +24,15 @@ class ClientTest extends TestCase
     {
         // todo: mock
 
-        $this->client = new Client('', '', 1);
+        $this->client = new Client('michael@annan.co.uk', 'michael');
+
+        $this->assertInstanceOf(Client::class, $this->client);
+    }
+
+    public function testGetToken()
+    {
+        $this->assertArrayHasKey('user_id', $this->client->getToken());
+        $this->assertArrayHasKey('token', $this->client->getToken());
     }
 
     /**
@@ -32,14 +40,14 @@ class ClientTest extends TestCase
      */
     public function testGetProperty()
     {
-        $this->assertInstanceOf(Client::class, $this->client);
-//        $property = $this->client->getProperty(1);
-//
-//        $this->assertEquals(500, $this->client->getStatusCode());
-//        $this->assertInstanceOf(Property::class, $property);
+        $property = $this->client->getProperty(1);
+
+        $this->assertEquals(200, $this->client->getStatusCode());
+        $this->assertInstanceOf(Property::class, $property);
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->client = null;
     }
 }

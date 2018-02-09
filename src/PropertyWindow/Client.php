@@ -3,71 +3,37 @@ declare(strict_types = 1);
 
 namespace PropertyWindow;
 
-use GuzzleHttp\Psr7\Response;
 use PropertyWindow\Properties\Property;
 use PropertyWindow\Properties\PropertyMapper;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\SubTypes\SubTypeMapper;
 
-
 /**
  * Class Client
  */
-class Client
+class Client extends Authentication
 {
-    public const PARSE_ERROR            = -32700;
-    public const INVALID_REQUEST        = -32600;
-    public const METHOD_NOT_FOUND       = -32601;
-    public const INVALID_PARAMS         = -32602;
-    public const INTERNAL_ERROR         = -32603;
-    public const EXCEPTION_ERROR        = -32604;
-    public const USER_NOT_AUTHENTICATED = -32000;
-
     /**
      * @var \GuzzleHttp\Client
      */
     private $client;
 
     /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @var string
-     */
-    private $apiSecret;
-
-    /**
-     * @var int
-     */
-    private $userId;
-
-    /**
-     * @var Response
-     */
-    private $response;
-
-    /**
-     * @param string $username
+     * @param string $email
      * @param string $password
-     * @param int    $userId
      *
      * @throws \Exception
      */
-    public function __construct(string $username, string $password, int $userId)
+    public function __construct(string $email, string $password)
     {
-        $this->apiKey    = $username;
-        $this->apiSecret = $password;
-        $this->userId    = $userId;
-
-        $token = json_encode($this->generateToken());
+        if (empty($this->token)) {
+            $this->generateToken($email, $password);
+        }
 
         $this->client = new \GuzzleHttp\Client([
-            'base_uri' => 'https://engine.propertywindow.nl',
+            'base_uri' => $this->baseUrl,
             'headers'  => [
-                'Accept'        => 'application/json',
-                'Authorization' => 'Authorization ' . $token,
+                'Authorization' => 'Basic ' . $this->token['token'],
                 'Content-Type'  => 'application/json',
             ],
         ]);
@@ -83,93 +49,19 @@ class Client
      */
     public function call(string $path, string $operation, array $parameters = []): ?array
     {
-        $body = [
-            "jsonrpc" => "2.0",
-            "method"  => $operation,
-            "params"  => $parameters,
-        ];
-
-        if (empty($body)) {
-            throw new \Exception("Could not encode request body");
-        }
-
-        $request = $this->client->request('POST', $path, $body);
+        $body = $this->createBody($operation, $parameters);
 
         try {
-            $this->response = $this->client->send($request);
+            $this->response = $this->client->post($path, $body);
         } catch (\Exception $ex) {
             throw new \Exception($ex->getMessage(), 0, $ex);
         }
 
-        $decoded = json_decode($this->response->getBody(), true);
+        $decoded = json_decode($this->response->getBody()->getContents(), true);
 
         $this->checkResponse($decoded);
 
         return array_key_exists('result', $decoded) ? $decoded["result"] : null;
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    private function generateToken(): string
-    {
-        $timestamp = time();
-        $signature = hash_hmac("sha1", $timestamp . "-" . $this->userId, $this->apiSecret);
-
-        $payload = [
-            "user"      => $this->userId,
-            "api"       => $this->apiKey,
-            "timestamp" => $timestamp,
-            "signature" => $signature,
-        ];
-
-        $payloadJson = json_encode($payload);
-        if (empty($payloadJson)) {
-            throw new \Exception("Could not encode request headers");
-        }
-
-        return base64_encode($payloadJson);
-    }
-
-    /**
-     * @param array $decoded
-     *
-     * @throws \Exception
-     */
-    private function checkResponse(array $decoded)
-    {
-        if (empty($decoded)) {
-            throw new \Exception("Could not parse response from server");
-        }
-
-        if (!empty($decoded["error"])) {
-            $message = $decoded["error"]["message"];
-            switch ($decoded["error"]["code"]) {
-                case self::PARSE_ERROR:
-                    throw new \Exception("Could not parse json request, message: $message");
-                case self::INVALID_REQUEST:
-                    throw new \Exception("Invalid request from client, message: $message");
-                case self::METHOD_NOT_FOUND:
-                    throw new \Exception("Method does not exist, message: $message");
-                case self::INVALID_PARAMS:
-                    throw new \Exception("Invalid method parameters, message: $message");
-                case self::INTERNAL_ERROR:
-                    throw new \Exception("Server error, message: $message");
-                case self::USER_NOT_AUTHENTICATED:
-                    throw new \Exception("Could not authenticate user, message: $message");
-                default:
-                    throw new \Exception("Unexpected error, message: $message");
-            }
-        }
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatusCode(): int
-    {
-        return $this->response->getStatusCode();
     }
 
     /**

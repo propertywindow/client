@@ -25,20 +25,20 @@ $ composer require propertywindow/client
 
 ```php
 use PropertyWindow\Client;
-$client = new Client('username', 'password', 'userid');
+$propertyWindow = new Client('username', 'password', 'userid');
 ```
 
 * Get property
 ```php
-$client->getProperty('id');
+$propertyWindow->getProperty('id');
 ```
 
 * Get properties
 ```php
-$client->getProperties('limit', 'offset');
+$propertyWindow->getProperties('limit', 'offset');
 ```
 
 * Get subtype
 ```php
-$client->getSubType('id');
+$propertyWindow->getSubType('id');
 ```
