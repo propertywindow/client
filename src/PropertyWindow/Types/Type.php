@@ -16,13 +16,7 @@ class Type
     /**
      * @var string
      */
-    private $en;
-
-    /**
-     * @var string
-     */
-    private $nl;
-
+    private $type;
 
     /**
      * @param int $id
@@ -43,32 +37,16 @@ class Type
     /**
      * @return string
      */
-    public function getEn(): string
+    public function getType(): string
     {
-        return $this->en;
+        return $this->type;
     }
 
     /**
-     * @param string $en
+     * @param string $type
      */
-    public function setEn(string $en): void
+    public function setType(string $type): void
     {
-        $this->en = $en;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNl(): string
-    {
-        return $this->nl;
-    }
-
-    /**
-     * @param string $nl
-     */
-    public function setNl(string $nl): void
-    {
-        $this->nl = $nl;
+        $this->type = $type;
     }
 }

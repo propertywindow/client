@@ -28,10 +28,7 @@ class TypeTest extends TestCase
     {
         $this->assertNull($this->type->getId());
 
-        $this->type->setEn('House');
-        $this->assertEquals('House', $this->type->getEn());
-
-        $this->type->setNl('Huis');
-        $this->assertEquals('Huis', $this->type->getNl());
+        $this->type->setType('House');
+        $this->assertEquals('House', $this->type->getType());
     }
 }

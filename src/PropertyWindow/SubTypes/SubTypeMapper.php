@@ -20,12 +20,11 @@ class SubTypeMapper
         $property = new SubType();
 
         $type = new Type();
-        $type->setId($input['type']);
+        $type->setId($input['type_id']);
 
         $property->setId($input['id']);
         $property->setType($type);
-        $property->setEn($input['en']);
-        $property->setNl($input['nl']);
+        $property->setSubType($input['subtype']);
 
         return $property;
     }

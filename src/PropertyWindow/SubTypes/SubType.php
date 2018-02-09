@@ -23,13 +23,7 @@ class SubType
     /**
      * @var string
      */
-    private $en;
-
-    /**
-     * @var string
-     */
-    private $nl;
-
+    private $subType;
 
     /**
      * @param int $id
@@ -66,32 +60,16 @@ class SubType
     /**
      * @return string
      */
-    public function getEn(): string
+    public function getSubType(): string
     {
-        return $this->en;
+        return $this->subType;
     }
 
     /**
-     * @param string $en
+     * @param string $SubType
      */
-    public function setEn(string $en): void
+    public function setSubType(string $SubType): void
     {
-        $this->en = $en;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNl(): string
-    {
-        return $this->nl;
-    }
-
-    /**
-     * @param string $nl
-     */
-    public function setNl(string $nl): void
-    {
-        $this->nl = $nl;
+        $this->subType = $SubType;
     }
 }

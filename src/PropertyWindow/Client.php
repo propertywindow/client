@@ -91,4 +91,15 @@ class Client extends Authentication
 
         return SubTypeMapper::toSubType($response);
     }
+
+    /**
+     * @return SubType[]
+     * @throws \Exception
+     */
+    public function getSubTypes(): array
+    {
+        $response = $this->call('/property/subtype', 'getSubTypes');
+
+        return SubTypeMapper::toSubTypes(...$response);
+    }
 }

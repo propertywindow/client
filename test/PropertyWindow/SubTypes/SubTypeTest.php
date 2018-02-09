@@ -34,10 +34,7 @@ class SubTypeTest extends TestCase
         $this->subType->setType($type);
         $this->assertEquals($type, $this->subType->getType());
 
-        $this->subType->setEn('Detached House');
-        $this->assertEquals('Detached House', $this->subType->getEn());
-
-        $this->subType->setNl('Vrijstaand Huis');
-        $this->assertEquals('Vrijstaand Huis', $this->subType->getNl());
+        $this->subType->setSubType('Detached House');
+        $this->assertEquals('Detached House', $this->subType->getSubType());
     }
 }
