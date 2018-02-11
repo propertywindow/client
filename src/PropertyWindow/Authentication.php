@@ -63,10 +63,6 @@ class Authentication
             throw new \Exception($decoded['error']['message']);
         }
 
-        if ($result["user_id"] === null) {
-            throw new \Exception("Could not authenticate user");
-        }
-
         $this->token = $result;
     }
 
