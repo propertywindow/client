@@ -58,32 +58,28 @@ class Authentication
      */
     protected function generateToken(string $email, string $password)
     {
-        $client   = new \GuzzleHttp\Client();
-        $body     = $this->createBody('login', ['email' => $email, 'password' => $password]);
-        $response = $client->post($this->baseUrl . '/authentication/login', $body);
-        $decoded  = json_decode($response->getBody()->getContents(), true);
-        $result   = array_key_exists('result', $decoded) ? $decoded["result"] : null;
+        $client        = new \GuzzleHttp\Client();
+        $body          = $this->createBody('login', ['email' => $email, 'password' => $password]);
+        $response      = $client->post($this->baseUrl . '/authentication/login', $body);
+        $this->decoded = json_decode($response->getBody()->getContents(), true);
+        $result        = array_key_exists('result', $this->decoded) ? $this->decoded["result"] : null;
 
-        $this->checkResponse($decoded);
+        $this->checkResponse();
 
         $this->token = $result;
     }
 
     /**
-     * @param array $decoded
-     *
      * @throws \Exception
      */
-    protected function checkResponse(array $decoded)
+    protected function checkResponse()
     {
-        $this->decoded = $decoded;
-
-        if (empty($decoded)) {
+        if (empty($this->decoded)) {
             throw new \Exception("Could not parse response from server");
         }
 
-        if (array_key_exists('error', $decoded)) {
-            throw new \Exception($decoded['error']['message']);
+        if (array_key_exists('error', $this->decoded)) {
+            throw new \Exception($this->decoded['error']['message']);
         }
     }
 

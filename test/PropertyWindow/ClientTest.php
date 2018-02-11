@@ -36,13 +36,19 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('token', $this->client->getToken());
     }
 
+    public function testGetDecoded()
+    {
+        $this->assertInternalType('array', $this->client->getDecoded());
+    }
+
     public function testCheckResponse()
     {
         $this->expectException(\Exception::class);
 
         $this->client = new Client('', '');
+        $decoded      = $this->client->getDecoded();
 
-        $this->assertArrayHasKey('error', $this->client->getDecoded());
+        $this->assertArrayHasKey('error', $decoded);
     }
 
     /**

@@ -51,19 +51,13 @@ class Client extends Authentication
      */
     public function call(string $path, string $operation, array $parameters = []): ?array
     {
-        $body = $this->createBody($operation, $parameters);
+        $body           = $this->createBody($operation, $parameters);
+        $this->response = $this->client->post($path, $body);
+        $this->decoded  = json_decode($this->response->getBody()->getContents(), true);
 
-        try {
-            $this->response = $this->client->post($path, $body);
-        } catch (\Exception $ex) {
-            throw new \Exception($ex->getMessage(), 0, $ex);
-        }
+        $this->checkResponse();
 
-        $decoded = json_decode($this->response->getBody()->getContents(), true);
-
-        $this->checkResponse($decoded);
-
-        return array_key_exists('result', $decoded) ? $decoded["result"] : null;
+        return array_key_exists('result', $this->decoded) ? $this->decoded["result"] : null;
     }
 
     /**
