@@ -26,6 +26,11 @@ class Authentication
     protected $response;
 
     /**
+     * @var array
+     */
+    protected $decoded = [];
+
+    /**
      * @param string $operation
      * @param array  $parameters
      *
@@ -71,6 +76,8 @@ class Authentication
      */
     protected function checkResponse(array $decoded)
     {
+        $this->decoded = $decoded;
+
         if (empty($decoded)) {
             throw new \Exception("Could not parse response from server");
         }
@@ -86,6 +93,14 @@ class Authentication
     public function getToken(): ?array
     {
         return $this->token;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDecoded(): ?array
+    {
+        return $this->decoded;
     }
 
     /**

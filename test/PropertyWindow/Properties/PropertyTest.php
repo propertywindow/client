@@ -33,5 +33,14 @@ class PropertyTest extends TestCase
 
         $this->property->setHouseNumber('20');
         $this->assertEquals('20', $this->property->getHouseNumber());
+
+        $this->property->setPostcode('postcode');
+        $this->assertEquals('postcode', $this->property->getPostcode());
+
+        $this->property->setCity('city');
+        $this->assertEquals('city', $this->property->getCity());
+
+        $this->property->setCountry('country');
+        $this->assertEquals('country', $this->property->getCountry());
     }
 }

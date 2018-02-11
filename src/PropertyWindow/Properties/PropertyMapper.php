@@ -20,6 +20,9 @@ class PropertyMapper
         $property->setId($input['id']);
         $property->setStreet($input['street']);
         $property->setHouseNumber($input['house_number']);
+        $property->setPostcode($input['postcode']);
+        $property->setCity($input['city']);
+        $property->setCountry($input['country']);
 
         return $property;
     }

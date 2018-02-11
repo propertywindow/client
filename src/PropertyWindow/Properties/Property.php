@@ -24,6 +24,21 @@ class Property
     private $houseNumber;
 
     /**
+     * @var string
+     */
+    private $postcode;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $country;
+
+    /**
      * @param int $id
      */
     public function setId(int $id): void
@@ -69,5 +84,53 @@ class Property
     public function setHouseNumber(string $houseNumber): void
     {
         $this->houseNumber = $houseNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostcode(): string
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * @param string $postcode
+     */
+    public function setPostcode(string $postcode): void
+    {
+        $this->postcode = $postcode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
     }
 }

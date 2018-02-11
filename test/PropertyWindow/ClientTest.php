@@ -41,6 +41,8 @@ class ClientTest extends TestCase
         $this->expectException(\Exception::class);
 
         $this->client = new Client('', '');
+
+        $this->assertArrayHasKey('error', $this->client->getDecoded());
     }
 
     /**
