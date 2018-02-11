@@ -57,6 +57,18 @@ class ClientTest extends TestCase
     /**
      * @throws \Exception
      */
+    public function testGetProperties()
+    {
+        $properties = $this->client->getProperties();
+
+        foreach ($properties as $property) {
+            $this->assertInstanceOf(Property::class, $property);
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testGetSubType()
     {
         $subType = $this->client->getSubType(1);

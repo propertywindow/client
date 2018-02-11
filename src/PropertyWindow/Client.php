@@ -79,6 +79,17 @@ class Client extends Authentication
     }
 
     /**
+     * @return Property[]
+     * @throws \Exception
+     */
+    public function getProperties(): array
+    {
+        $response = $this->call('/property', 'getProperties');
+
+        return PropertyMapper::toProperties($response);
+    }
+
+    /**
      * @param int $id
      *
      * @return SubType
