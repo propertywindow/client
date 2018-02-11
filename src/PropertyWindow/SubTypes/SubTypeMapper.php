@@ -17,16 +17,16 @@ class SubTypeMapper
      */
     public static function toSubType(array $input): SubType
     {
-        $property = new SubType();
+        $subType = new SubType();
 
         $type = new Type();
         $type->setId($input['type_id']);
 
-        $property->setId($input['id']);
-        $property->setType($type);
-        $property->setSubType($input['subtype']);
+        $subType->setId($input['id']);
+        $subType->setType($type);
+        $subType->setSubType($input['subtype']);
 
-        return $property;
+        return $subType;
     }
 
     /**
