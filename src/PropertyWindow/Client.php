@@ -7,6 +7,8 @@ use PropertyWindow\Properties\Property;
 use PropertyWindow\Properties\PropertyMapper;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\SubTypes\SubTypeMapper;
+use PropertyWindow\Types\Type;
+use PropertyWindow\Types\TypeMapper;
 
 /**
  * Class Client
@@ -112,5 +114,30 @@ class Client extends Authentication
         $response = $this->call('/property/subtype', 'getSubTypes');
 
         return SubTypeMapper::toSubTypes($response);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Type
+     * @throws \Exception
+     */
+    public function getType(int $id): Type
+    {
+        $parameters = ['id' => $id];
+        $response   = $this->call('/property/type', 'getType', $parameters);
+
+        return TypeMapper::toType($response);
+    }
+
+    /**
+     * @return Type[]
+     * @throws \Exception
+     */
+    public function getTypes(): array
+    {
+        $response = $this->call('/property/type', 'getTypes');
+
+        return TypeMapper::toTypes($response);
     }
 }

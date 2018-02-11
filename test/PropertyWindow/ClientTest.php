@@ -69,6 +69,29 @@ class ClientTest extends TestCase
     /**
      * @throws \Exception
      */
+    public function testGetType()
+    {
+        $type = $this->client->getType(1);
+
+        $this->assertEquals(200, $this->client->getStatusCode());
+        $this->assertInstanceOf(Type::class, $type);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetTypes()
+    {
+        $types = $this->client->getTypes();
+
+        foreach ($types as $type) {
+            $this->assertInstanceOf(Type::class, $type);
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testGetSubType()
     {
         $subType = $this->client->getSubType(1);
