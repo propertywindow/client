@@ -59,9 +59,7 @@ class Authentication
         $decoded  = json_decode($response->getBody()->getContents(), true);
         $result   = array_key_exists('result', $decoded) ? $decoded["result"] : null;
 
-        if (array_key_exists('error', $decoded)) {
-            throw new \Exception($decoded['error']['message']);
-        }
+        $this->checkResponse($decoded);
 
         $this->token = $result;
     }

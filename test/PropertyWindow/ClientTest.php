@@ -36,7 +36,7 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('token', $this->client->getToken());
     }
 
-    public function testGenerateTokenException()
+    public function testCheckResponse()
     {
         $this->expectException(\Exception::class);
 
