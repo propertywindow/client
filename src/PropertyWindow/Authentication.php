@@ -91,17 +91,17 @@ class Authentication
     }
 
     /**
-     * @param array|null $decoded
+     * @param array $decoded
      */
-    public function setDecoded(?array $decoded): void
+    public function setDecoded(array $decoded): void
     {
         $this->decoded = $decoded;
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getDecoded(): ?array
+    public function getDecoded(): array
     {
         return $this->decoded;
     }
