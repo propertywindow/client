@@ -51,6 +51,7 @@ class ClientTest extends TestCase
             $this->client->checkResponse();
         } catch (\Exception $exception) {
             $this->assertEquals(500, $exception->getCode());
+            $this->assertInstanceOf(\Exception::class, $exception);
         }
 
 //        $this->client = new Client('michael@annan.co.uk', 'michael');
