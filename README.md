@@ -1,6 +1,7 @@
 Property Window Client 
 ========================
 [![by](https://img.shields.io/badge/by-%40marcgeurts-blue.svg)](https://github.com/marcgeurts) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/propertywindow/client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/propertywindow/client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/propertywindow/client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/build-status/master)
+
 PHP Client for property window agent websites 
 
 ## Installation
