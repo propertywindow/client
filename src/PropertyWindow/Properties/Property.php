@@ -79,6 +79,11 @@ class Property
     /**
      * @var bool
      */
+    private $online = false;
+
+    /**
+     * @var bool
+     */
     private $archived = false;
 
     /**
@@ -287,6 +292,22 @@ class Property
     public function setLng(string $lng): void
     {
         $this->lng = $lng;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnline(): bool
+    {
+        return $this->online;
+    }
+
+    /**
+     * @param bool $online
+     */
+    public function setOnline(bool $online): void
+    {
+        $this->online = $online;
     }
 
     /**

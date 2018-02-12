@@ -34,9 +34,7 @@ $propertyWindow = new Client('email', 'password');
 $property = $propertyWindow->getProperty('id');
 
 $id          = $property->getId();
-$subTypeId   = $property->getSubType()->getId();
 $subType     = $property->getSubType()->getName();
-$termsId     = $property->getTerms()->getId();
 $terms       = $property->getTerms()->getName();
 $street      = $property->getStreet();
 $houseNumber = $property->getHouseNumber();
@@ -48,7 +46,8 @@ $showPrice   = $property->getTerms()->isShowPrice();
 $soldPrice   = $property->getSoldPrice();
 $lat         = $property->getLat();
 $lng         = $property->getLng();
-$archived    = $property->geArchived();
+$online      = $property->isOnline();
+$archived    = $property->isArchived();
 ```
 
 * Get properties
@@ -57,9 +56,7 @@ $properties = $propertyWindow->getProperties();
 
 foreach ($properties as $property) {
     $id          = $property->getId();
-    $subTypeId   = $property->getSubType()->getId();
     $subType     = $property->getSubType()->getName();
-    $termsId     = $property->getTerms()->getId();
     $terms       = $property->getTerms()->getName();
     $street      = $property->getStreet();
     $houseNumber = $property->getHouseNumber();
@@ -71,7 +68,8 @@ foreach ($properties as $property) {
     $soldPrice   = $property->getSoldPrice();
     $lat         = $property->getLat();
     $lng         = $property->getLng();
-    $archived    = $property->geArchived();
+    $online      = $property->isOnline();
+    $archived    = $property->isArchived();
 }
 ```
 * Get type

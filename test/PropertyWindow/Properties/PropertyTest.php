@@ -76,6 +76,9 @@ class PropertyTest extends TestCase
         $this->property->setLng('-3.188267');
         $this->assertEquals('-3.188267', $this->property->getLng());
 
+        $this->property->setOnline(false);
+        $this->assertFalse($this->property->isOnline());
+
         $this->property->setArchived(true);
         $this->assertTrue($this->property->isArchived());
     }
