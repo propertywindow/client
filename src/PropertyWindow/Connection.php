@@ -6,10 +6,15 @@ namespace PropertyWindow;
 use GuzzleHttp\Psr7\Response;
 
 /**
- * Class Authentication
+ * Class Connection
  */
-class Authentication
+class Connection
 {
+    /**
+     * @var \GuzzleHttp\Client
+     */
+    private $client;
+
     /**
      * @var string
      */
@@ -29,6 +34,46 @@ class Authentication
      * @var array
      */
     protected $decoded = [];
+
+    /**
+     * @param string $email
+     * @param string $password
+     *
+     * @throws \Exception
+     */
+    public function __construct(string $email, string $password)
+    {
+        if (empty($this->token)) {
+            $this->generateToken($email, $password);
+        }
+
+        $this->client = new \GuzzleHttp\Client([
+            'base_uri' => $this->baseUrl,
+            'headers'  => [
+                'Authorization' => 'Basic ' . $this->token['token'],
+                'Content-Type'  => 'application/json',
+            ],
+        ]);
+    }
+
+    /**
+     * @param string $path
+     * @param string $operation
+     * @param array  $parameters
+     *
+     * @return array|null
+     * @throws \Exception
+     */
+    public function call(string $path, string $operation, array $parameters = []): ?array
+    {
+        $body           = $this->createBody($operation, $parameters);
+        $this->response = $this->client->post($path, $body);
+
+        $this->setDecoded(json_decode($this->response->getBody()->getContents(), true));
+        $this->checkResponse();
+
+        return array_key_exists('result', $this->decoded) ? $this->decoded["result"] : null;
+    }
 
     /**
      * @param string $operation
@@ -58,9 +103,9 @@ class Authentication
      */
     protected function generateToken(string $email, string $password)
     {
-        $client        = new \GuzzleHttp\Client();
-        $body          = $this->createBody('login', ['email' => $email, 'password' => $password]);
-        $response      = $client->post($this->baseUrl . '/authentication/login', $body);
+        $client   = new \GuzzleHttp\Client();
+        $body     = $this->createBody('login', ['email' => $email, 'password' => $password]);
+        $response = $client->post($this->baseUrl . '/authentication/login', $body);
 
         $this->setDecoded(json_decode($response->getBody()->getContents(), true));
         $this->checkResponse();
@@ -109,5 +154,4 @@ class Authentication
     {
         return $this->response->getStatusCode();
     }
-
 }

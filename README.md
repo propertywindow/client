@@ -33,6 +33,7 @@ $propertyWindow = new Client('email', 'password');
 ```php
 $property = $propertyWindow->getProperty('id');
 
+$id          = $property->getId();
 $subTypeId   = $property->getSubType()->getId();
 $subType     = $property->getSubType()->getName();
 $termsId     = $property->getTerms()->getId();
@@ -55,6 +56,7 @@ $archived    = $property->geArchived();
 $properties = $propertyWindow->getProperties();
 
 foreach ($properties as $property) {
+    $id          = $property->getId();
     $subTypeId   = $property->getSubType()->getId();
     $subType     = $property->getSubType()->getName();
     $termsId     = $property->getTerms()->getId();
