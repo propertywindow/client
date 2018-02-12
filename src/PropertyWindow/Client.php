@@ -7,6 +7,8 @@ use PropertyWindow\Properties\Property;
 use PropertyWindow\Properties\PropertyMapper;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\SubTypes\SubTypeMapper;
+use PropertyWindow\Terms\Terms;
+use PropertyWindow\Terms\TermsMapper;
 use PropertyWindow\Types\Type;
 use PropertyWindow\Types\TypeMapper;
 
@@ -88,6 +90,31 @@ class Client extends Authentication
     /**
      * @param int $id
      *
+     * @return Type
+     * @throws \Exception
+     */
+    public function getType(int $id): Type
+    {
+        $parameters = ['id' => $id];
+        $response   = $this->call('/property/type', 'getType', $parameters);
+
+        return TypeMapper::toType($response);
+    }
+
+    /**
+     * @return Type[]
+     * @throws \Exception
+     */
+    public function getTypes(): array
+    {
+        $response = $this->call('/property/type', 'getTypes');
+
+        return TypeMapper::toTypes($response);
+    }
+
+    /**
+     * @param int $id
+     *
      * @return SubType
      * @throws \Exception
      */
@@ -113,25 +140,25 @@ class Client extends Authentication
     /**
      * @param int $id
      *
-     * @return Type
+     * @return Terms
      * @throws \Exception
      */
-    public function getType(int $id): Type
+    public function getTerm(int $id): Terms
     {
         $parameters = ['id' => $id];
-        $response   = $this->call('/property/type', 'getType', $parameters);
+        $response   = $this->call('/property/terms', 'getTerm', $parameters);
 
-        return TypeMapper::toType($response);
+        return TermsMapper::toTerm($response);
     }
 
     /**
-     * @return Type[]
+     * @return Terms[]
      * @throws \Exception
      */
-    public function getTypes(): array
+    public function getTerms(): array
     {
-        $response = $this->call('/property/type', 'getTypes');
+        $response = $this->call('/property/terms', 'getTerms');
 
-        return TypeMapper::toTypes($response);
+        return TermsMapper::toTerms($response);
     }
 }

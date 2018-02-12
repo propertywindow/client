@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use PropertyWindow\Client;
 use PropertyWindow\Properties\Property;
 use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\Terms\Terms;
 use PropertyWindow\Types\Type;
 
 /**
@@ -90,7 +91,6 @@ class ClientTest extends TestCase
     {
         $type = $this->client->getType(1);
 
-        $this->assertEquals(200, $this->client->getStatusCode());
         $this->assertInstanceOf(Type::class, $type);
     }
 
@@ -113,7 +113,6 @@ class ClientTest extends TestCase
     {
         $subType = $this->client->getSubType(1);
 
-        $this->assertEquals(200, $this->client->getStatusCode());
         $this->assertInstanceOf(SubType::class, $subType);
         $this->assertInstanceOf(Type::class, $subType->getType());
     }
@@ -133,5 +132,27 @@ class ClientTest extends TestCase
     public function tearDown()
     {
         $this->client = null;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetTerm()
+    {
+        $term = $this->client->getTerm(1);
+
+        $this->assertInstanceOf(Terms::class, $term);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGetTerms()
+    {
+        $terms = $this->client->getTerms();
+
+        foreach ($terms as $term) {
+            $this->assertInstanceOf(Terms::class, $term);
+        }
     }
 }
