@@ -47,7 +47,7 @@ class ClientTest extends TestCase
     public function testCheckResponse(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Could not find property with id: 500');
+        $this->expectExceptionMessage('Could not find property with id: 99999');
 
         try {
             $this->client = new Client('', '');
@@ -57,10 +57,7 @@ class ClientTest extends TestCase
         }
 
         $this->client = new Client('michael@annan.co.uk', 'michael');
-        $this->client->getProperty(500);
-
-        $this->assertArrayHasKey('error', $this->client->getDecoded());
-        $this->assertArrayHasKey('message2', $this->client->getDecoded()['error']);
+        $this->client->getProperty(99999);
     }
 
     /**

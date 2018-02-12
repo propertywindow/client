@@ -73,12 +73,8 @@ class Authentication
      */
     public function checkResponse()
     {
-        if (empty($this->decoded)) {
-            throw new \Exception("Could not parse response from server");
-        }
-
-        if (array_key_exists('error', $this->decoded)) {
-            throw new \Exception($this->decoded['error']['message']);
+        if (array_key_exists('error', $this->getDecoded())) {
+            throw new \Exception($this->getDecoded()['error']['message']);
         }
     }
 
