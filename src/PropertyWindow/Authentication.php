@@ -71,7 +71,7 @@ class Authentication
     /**
      * @throws \Exception
      */
-    protected function checkResponse()
+    public function checkResponse()
     {
         if (empty($this->decoded)) {
             throw new \Exception("Could not parse response from server");
