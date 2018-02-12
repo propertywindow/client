@@ -24,10 +24,8 @@ class PropertyTest extends TestCase
         $this->property = new Property();
     }
 
-    public function testGetterAndSetter()
+    public function testAddress()
     {
-        $this->assertNull($this->property->getId());
-
         $this->property->setStreet('Street');
         $this->assertEquals('Street', $this->property->getStreet());
 
@@ -42,6 +40,11 @@ class PropertyTest extends TestCase
 
         $this->property->setCountry('country');
         $this->assertEquals('country', $this->property->getCountry());
+    }
+
+    public function testGetterAndSetter()
+    {
+        $this->assertNull($this->property->getId());
 
         $this->property->setPrice(150000);
         $this->assertEquals(150000, $this->property->getPrice());
