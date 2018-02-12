@@ -100,3 +100,22 @@ foreach ($subTypes as $subType) {
     $typeId  = $subType->getType()->getId();
 }
 ```
+* Get term
+```php
+$term = $propertyWindow->getTerm('id');
+
+$id        = $term->getId();
+$type      = $term->getTerm();
+$showPrice = $term->isShowPrice();
+```
+
+* Get terms
+```php
+$terms = $propertyWindow->getTerms();
+
+foreach ($terms as $term) {
+    $id        = $term->getId();
+    $term      = $term->getTerm();
+    $showPrice = $term->isShowPrice();
+}
+```
