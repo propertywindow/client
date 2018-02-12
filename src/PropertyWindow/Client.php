@@ -53,8 +53,8 @@ class Client extends Authentication
     {
         $body           = $this->createBody($operation, $parameters);
         $this->response = $this->client->post($path, $body);
-        $this->decoded  = json_decode($this->response->getBody()->getContents(), true);
 
+        $this->setDecoded(json_decode($this->response->getBody()->getContents(), true));
         $this->checkResponse();
 
         return array_key_exists('result', $this->decoded) ? $this->decoded["result"] : null;

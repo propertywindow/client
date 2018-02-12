@@ -61,12 +61,11 @@ class Authentication
         $client        = new \GuzzleHttp\Client();
         $body          = $this->createBody('login', ['email' => $email, 'password' => $password]);
         $response      = $client->post($this->baseUrl . '/authentication/login', $body);
-        $this->decoded = json_decode($response->getBody()->getContents(), true);
-        $result        = array_key_exists('result', $this->decoded) ? $this->decoded["result"] : null;
 
+        $this->setDecoded(json_decode($response->getBody()->getContents(), true));
         $this->checkResponse();
 
-        $this->token = $result;
+        $this->token = array_key_exists('result', $this->decoded) ? $this->decoded['result'] : null;
     }
 
     /**
@@ -89,6 +88,14 @@ class Authentication
     public function getToken(): ?array
     {
         return $this->token;
+    }
+
+    /**
+     * @param array|null $decoded
+     */
+    public function setDecoded(?array $decoded): void
+    {
+        $this->decoded = $decoded;
     }
 
     /**

@@ -37,7 +37,7 @@ $propertyWindow->getProperty('id');
 
 * Get properties
 ```php
-$propertyWindow->getProperties('limit', 'offset');
+$properties = $propertyWindow->getProperties();
 
 foreach ($properties as $property) {
     $street      = $property->getStreet();
@@ -52,6 +52,20 @@ foreach ($properties as $property) {
     $archived    = $property->geArchived();
 }
 ```
+* Get type
+```php
+$propertyWindow->getType('id');
+```
+
+* Get types
+```php
+$types = $propertyWindow->getTypes();
+
+foreach ($types as $type) {
+    $id   = $type->getId();
+    $type = $type->getType();
+}
+```
 
 * Get subtype
 ```php
@@ -60,5 +74,11 @@ $propertyWindow->getSubType('id');
 
 * Get subtypes
 ```php
-$propertyWindow->getSubTypes();
+$subTypes = $propertyWindow->getSubTypes();
+
+foreach ($subTypes as $subType) {
+    $id      = $subType->getId();
+    $subType = $subType->getSubType();
+    $type    = $subType->getType()->getId();
+}
 ```
