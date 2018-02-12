@@ -22,24 +22,16 @@ class PropertyMapper
 
         $subType = new SubType();
         $subType->setId($input['subtype_id']);
+        unset($input['subtype']);
 
         $terms = new Terms();
         $terms->setId($input['terms_id']);
+        unset($input['terms']);
 
-        $property->setId($input['id']);
         $property->setSubType($subType);
         $property->setTerms($terms);
-        $property->setStreet($input['street']);
-        $property->setHouseNumber($input['house_number']);
-        $property->setPostcode($input['postcode']);
-        $property->setCity($input['city']);
-        $property->setCountry($input['country']);
-        $property->setPrice($input['price']);
-        $property->setSoldPrice($input['sold_price']);
-        $property->setEspc($input['espc']);
-        $property->setLat($input['lat']);
-        $property->setLng($input['lng']);
-        $property->setArchived($input['archived']);
+
+        self::prepareParameters($property, $input);
 
         return $property;
     }
@@ -58,5 +50,22 @@ class PropertyMapper
         }
 
         return $result;
+    }
+
+    /**
+     * @param       $entity
+     * @param array $input
+     */
+    public static function prepareParameters($entity, array $input)
+    {
+        foreach ($input as $property => $value) {
+            $propertyPart = explode('_', $property);
+            $property     = implode('', array_map('ucfirst', $propertyPart));
+            $method       = sprintf('set%s', $property);
+
+            if (is_callable([$entity, $method])) {
+                $entity->$method($value);
+            }
+        }
     }
 }
