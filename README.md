@@ -3,7 +3,7 @@ Property Window Client
 
 PHP Client for property window agent websites 
 
-[![by](https://img.shields.io/badge/by-%40propertywindow-ff69b4.svg?style=flat-square)](https://github.com/propertywindow) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/propertywindow/client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/propertywindow/client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/propertywindow/client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/propertywindow/client/build-status/master)
+[![by](https://img.shields.io/badge/by-%40marcgeurts-blue.svg?style=flat-square)](https://github.com/marcgeurts) [![Code Quality](https://img.shields.io/scrutinizer/g/propertywindow/client.svg?style=flat-square)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/propertywindow/client.svg?style=flat-square)](https://scrutinizer-ci.com/g/propertywindow/client/?branch=master) [![Build Status](https://img.shields.io/scrutinizer/build/g/propertywindow/client.svg?style=flat-square)](https://scrutinizer-ci.com/g/propertywindow/client/build-status/master)
 
 ## Installation
 
