@@ -15,6 +15,9 @@ build:
         coverage:
           file: '.coverage'
           format: 'clover'
+      - command: phpcs-run --standard=phpcs.xml
+          use_website_config: false
+      - php-scrutinizer-run
 
 tools:
   php_code_coverage: true
