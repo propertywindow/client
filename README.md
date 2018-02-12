@@ -32,7 +32,18 @@ $propertyWindow = new Client('email', 'password');
 
 * Get property
 ```php
-$propertyWindow->getProperty('id');
+$property = $propertyWindow->getProperty('id');
+
+$street      = $property->getStreet();
+$houseNumber = $property->getHouseNumber();
+$postcode    = $property->getPostcode();
+$city        = $property->getCity();
+$country     = $property->getCountry();
+$price       = $property->getPrice();
+$soldPrice   = $property->getSoldPrice();
+$lat         = $property->getLat();
+$lng         = $property->getLng();
+$archived    = $property->geArchived();
 ```
 
 * Get properties
@@ -54,7 +65,10 @@ foreach ($properties as $property) {
 ```
 * Get type
 ```php
-$propertyWindow->getType('id');
+$type = $propertyWindow->getType('id');
+
+$id   = $type->getId();
+$type = $type->getType();
 ```
 
 * Get types
@@ -69,7 +83,11 @@ foreach ($types as $type) {
 
 * Get subtype
 ```php
-$propertyWindow->getSubType('id');
+$subType = $propertyWindow->getSubType('id');
+
+$id      = $subType->getId();
+$subType = $subType->getSubType();
+$typeId  = $subType->getType()->getId();
 ```
 
 * Get subtypes
@@ -79,6 +97,6 @@ $subTypes = $propertyWindow->getSubTypes();
 foreach ($subTypes as $subType) {
     $id      = $subType->getId();
     $subType = $subType->getSubType();
-    $type    = $subType->getType()->getId();
+    $typeId  = $subType->getType()->getId();
 }
 ```
