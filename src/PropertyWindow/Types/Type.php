@@ -16,7 +16,7 @@ class Type
     /**
      * @var string
      */
-    private $type;
+    private $name;
 
     /**
      * @param int $id
@@ -37,16 +37,16 @@ class Type
     /**
      * @return string
      */
-    public function getType(): string
+    public function getName(): string
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
-     * @param string $type
+     * @param string $name
      */
-    public function setType(string $type): void
+    public function setName(string $name): void
     {
-        $this->type = $type;
+        $this->name = $name;
     }
 }

@@ -16,7 +16,7 @@ class Terms
     /**
      * @var string
      */
-    private $term;
+    private $name;
 
     /**
      * @var boolean
@@ -42,17 +42,17 @@ class Terms
     /**
      * @return string
      */
-    public function getTerm(): string
+    public function getName(): string
     {
-        return $this->term;
+        return $this->name;
     }
 
     /**
-     * @param string $term
+     * @param string $name
      */
-    public function setTerm(string $term): void
+    public function setName(string $name): void
     {
-        $this->term = $term;
+        $this->name = $name;
     }
 
     /**

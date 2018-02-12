@@ -5,6 +5,8 @@ namespace Tests\PropertyWindow\Properties;
 
 use PHPUnit\Framework\TestCase;
 use PropertyWindow\Properties\Property;
+use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\Terms\Terms;
 
 /**
  *  Property Test
@@ -42,10 +44,23 @@ class PropertyTest extends TestCase
         $this->assertEquals('country', $this->property->getCountry());
     }
 
-    public function testGetterAndSetter()
+    public function testMappings()
     {
         $this->assertNull($this->property->getId());
 
+        $subType = new SubType();
+
+        $this->property->setSubType($subType);
+        $this->assertEquals($subType, $this->property->getSubType());
+
+        $terms = new Terms();
+
+        $this->property->setTerms($terms);
+        $this->assertEquals($terms, $this->property->getTerms());
+    }
+
+    public function testGetterAndSetter()
+    {
         $this->property->setPrice(150000);
         $this->assertEquals(150000, $this->property->getPrice());
 

@@ -34,6 +34,8 @@ $propertyWindow = new Client('email', 'password');
 ```php
 $property = $propertyWindow->getProperty('id');
 
+$subTypeId   = $property->getSubType()->getId();
+$subType     = $property->getSubType()->getName();
 $street      = $property->getStreet();
 $houseNumber = $property->getHouseNumber();
 $postcode    = $property->getPostcode();
@@ -51,6 +53,8 @@ $archived    = $property->geArchived();
 $properties = $propertyWindow->getProperties();
 
 foreach ($properties as $property) {
+    $subTypeId   = $property->getSubType()->getId();
+    $subType     = $property->getSubType()->getName();
     $street      = $property->getStreet();
     $houseNumber = $property->getHouseNumber();
     $postcode    = $property->getPostcode();
@@ -68,7 +72,7 @@ foreach ($properties as $property) {
 $type = $propertyWindow->getType('id');
 
 $id   = $type->getId();
-$type = $type->getType();
+$type = $type->getName();
 ```
 
 * Get types
@@ -77,7 +81,7 @@ $types = $propertyWindow->getTypes();
 
 foreach ($types as $type) {
     $id   = $type->getId();
-    $type = $type->getType();
+    $type = $type->getName();
 }
 ```
 
@@ -86,8 +90,9 @@ foreach ($types as $type) {
 $subType = $propertyWindow->getSubType('id');
 
 $id      = $subType->getId();
-$subType = $subType->getSubType();
+$subType = $subType->getName();
 $typeId  = $subType->getType()->getId();
+$type    = $subType->getType()->getName();
 ```
 
 * Get subtypes
@@ -96,8 +101,9 @@ $subTypes = $propertyWindow->getSubTypes();
 
 foreach ($subTypes as $subType) {
     $id      = $subType->getId();
-    $subType = $subType->getSubType();
+    $subType = $subType->getName();
     $typeId  = $subType->getType()->getId();
+    $type    = $subType->getType()->getName();
 }
 ```
 * Get term
@@ -105,7 +111,7 @@ foreach ($subTypes as $subType) {
 $term = $propertyWindow->getTerm('id');
 
 $id        = $term->getId();
-$type      = $term->getTerm();
+$type      = $term->getName();
 $showPrice = $term->isShowPrice();
 ```
 
@@ -115,7 +121,7 @@ $terms = $propertyWindow->getTerms();
 
 foreach ($terms as $term) {
     $id        = $term->getId();
-    $term      = $term->getTerm();
+    $term      = $term->getName();
     $showPrice = $term->isShowPrice();
 }
 ```

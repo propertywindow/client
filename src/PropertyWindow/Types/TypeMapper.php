@@ -18,7 +18,7 @@ class TypeMapper
         $type = new Type();
 
         $type->setId($input['id']);
-        $type->setType($input['type']);
+        $type->setName($input['type']);
 
         return $type;
     }

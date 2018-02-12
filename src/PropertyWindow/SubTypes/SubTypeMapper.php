@@ -24,7 +24,7 @@ class SubTypeMapper
 
         $subType->setId($input['id']);
         $subType->setType($type);
-        $subType->setSubType($input['subtype']);
+        $subType->setName($input['subtype']);
 
         return $subType;
     }

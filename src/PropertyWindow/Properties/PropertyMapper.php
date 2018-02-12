@@ -3,6 +3,9 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Properties;
 
+use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\Terms\Terms;
+
 /**
  * Class PropertyMapper
  */
@@ -17,7 +20,15 @@ class PropertyMapper
     {
         $property = new Property();
 
+        $subType = new SubType();
+        $subType->setId($input['subtype_id']);
+
+        $terms = new Terms();
+        $terms->setId($input['terms_id']);
+
         $property->setId($input['id']);
+        $property->setSubType($subType);
+        $property->setTerms($terms);
         $property->setStreet($input['street']);
         $property->setHouseNumber($input['house_number']);
         $property->setPostcode($input['postcode']);

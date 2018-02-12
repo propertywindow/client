@@ -23,7 +23,7 @@ class SubType
     /**
      * @var string
      */
-    private $subType;
+    private $name;
 
     /**
      * @param int $id
@@ -42,7 +42,7 @@ class SubType
     }
 
     /**
-     * @return Type
+     * @return \PropertyWindow\Types\Type
      */
     public function getType(): Type
     {
@@ -50,7 +50,7 @@ class SubType
     }
 
     /**
-     * @param Type $type
+     * @param \PropertyWindow\Types\Type $type
      */
     public function setType(Type $type): void
     {
@@ -60,16 +60,16 @@ class SubType
     /**
      * @return string
      */
-    public function getSubType(): string
+    public function getName(): string
     {
-        return $this->subType;
+        return $this->name;
     }
 
     /**
-     * @param string $SubType
+     * @param string $name
      */
-    public function setSubType(string $SubType): void
+    public function setName(string $name): void
     {
-        $this->subType = $SubType;
+        $this->name = $name;
     }
 }

@@ -3,6 +3,9 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Properties;
 
+use PropertyWindow\SubTypes\SubType;
+use PropertyWindow\Terms\Terms;
+
 /**
  * Class Property
  */
@@ -12,6 +15,16 @@ class Property
      * @var int
      */
     private $id;
+
+    /**
+     * @var \PropertyWindow\SubTypes\SubType
+     */
+    private $subType;
+
+    /**
+     * @var \PropertyWindow\Terms\Terms
+     */
+    private $terms;
 
     /**
      * @var string
@@ -82,6 +95,38 @@ class Property
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return \PropertyWindow\SubTypes\SubType
+     */
+    public function getSubType(): SubType
+    {
+        return $this->subType;
+    }
+
+    /**
+     * @param \PropertyWindow\SubTypes\SubType $subType
+     */
+    public function setSubType(SubType $subType): void
+    {
+        $this->subType = $subType;
+    }
+
+    /**
+     * @return \PropertyWindow\Terms\Terms
+     */
+    public function getTerms(): Terms
+    {
+        return $this->terms;
+    }
+
+    /**
+     * @param \PropertyWindow\Terms\Terms $terms
+     */
+    public function setTerms(Terms $terms): void
+    {
+        $this->terms = $terms;
     }
 
     /**

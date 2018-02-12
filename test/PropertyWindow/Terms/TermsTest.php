@@ -28,8 +28,8 @@ class TermsTest extends TestCase
     {
         $this->assertNull($this->term->getId());
 
-        $this->term->setTerm('New');
-        $this->assertEquals('New', $this->term->getTerm());
+        $this->term->setName('New');
+        $this->assertEquals('New', $this->term->getName());
 
         $this->term->setShowPrice(true);
         $this->assertTrue($this->term->isShowPrice());

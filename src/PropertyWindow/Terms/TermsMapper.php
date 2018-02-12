@@ -18,7 +18,7 @@ class TermsMapper
         $term = new Terms();
 
         $term->setId($input['id']);
-        $term->setTerm($input['term']);
+        $term->setName($input['term']);
         $term->setShowPrice($input['show_price']);
 
         return $term;
