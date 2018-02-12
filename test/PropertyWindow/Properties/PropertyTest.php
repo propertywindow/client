@@ -42,5 +42,23 @@ class PropertyTest extends TestCase
 
         $this->property->setCountry('country');
         $this->assertEquals('country', $this->property->getCountry());
+
+        $this->property->setPrice(150000);
+        $this->assertEquals(150000, $this->property->getPrice());
+
+        $this->property->setSoldPrice(0);
+        $this->assertEquals(0, $this->property->getSoldPrice());
+
+        $this->property->setEspc(false);
+        $this->assertFalse($this->property->isEspc());
+
+        $this->property->setLat('55.953252');
+        $this->assertEquals('55.953252', $this->property->getLat());
+
+        $this->property->setLng('-3.188267');
+        $this->assertEquals('-3.188267', $this->property->getLng());
+
+        $this->property->setArchived(true);
+        $this->assertTrue($this->property->isArchived());
     }
 }

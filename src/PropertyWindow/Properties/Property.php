@@ -39,6 +39,36 @@ class Property
     private $country;
 
     /**
+     * @var int
+     */
+    private $price = 0;
+
+    /**
+     * @var int|null
+     */
+    private $soldPrice;
+
+    /**
+     * @var bool
+     */
+    private $espc = false;
+
+    /**
+     * @var string
+     */
+    private $lat;
+
+    /**
+     * @var string
+     */
+    private $lng;
+
+    /**
+     * @var bool
+     */
+    private $archived = false;
+
+    /**
      * @param int $id
      */
     public function setId(int $id): void
@@ -132,5 +162,101 @@ class Property
     public function setCountry(string $country): void
     {
         $this->country = $country;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice(int $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSoldPrice(): ?int
+    {
+        return $this->soldPrice;
+    }
+
+    /**
+     * @param int|null $soldPrice
+     */
+    public function setSoldPrice(?int $soldPrice): void
+    {
+        $this->soldPrice = $soldPrice;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEspc(): bool
+    {
+        return $this->espc;
+    }
+
+    /**
+     * @param bool $espc
+     */
+    public function setEspc(bool $espc): void
+    {
+        $this->espc = $espc;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLat(): string
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @param string $lat
+     */
+    public function setLat(string $lat): void
+    {
+        $this->lat = $lat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLng(): string
+    {
+        return $this->lng;
+    }
+
+    /**
+     * @param string $lng
+     */
+    public function setLng(string $lng): void
+    {
+        $this->lng = $lng;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    /**
+     * @param bool $archived
+     */
+    public function setArchived(bool $archived): void
+    {
+        $this->archived = $archived;
     }
 }

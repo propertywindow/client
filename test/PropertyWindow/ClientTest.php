@@ -41,7 +41,10 @@ class ClientTest extends TestCase
         $this->assertInternalType('array', $this->client->getDecoded());
     }
 
-    public function testCheckResponse()
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckResponse(): void
     {
         $this->expectException(\Exception::class);
 
@@ -49,6 +52,7 @@ class ClientTest extends TestCase
         $decoded      = $this->client->getDecoded();
 
         $this->assertArrayHasKey('error', $decoded);
+        $this->assertArrayHasKey('message', $decoded['error']);
     }
 
     /**

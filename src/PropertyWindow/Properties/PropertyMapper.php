@@ -23,6 +23,12 @@ class PropertyMapper
         $property->setPostcode($input['postcode']);
         $property->setCity($input['city']);
         $property->setCountry($input['country']);
+        $property->setPrice($input['price']);
+        $property->setSoldPrice($input['sold_price']);
+        $property->setEspc($input['espc']);
+        $property->setLat($input['lat']);
+        $property->setLng($input['lng']);
+        $property->setArchived($input['archived']);
 
         return $property;
     }

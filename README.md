@@ -40,7 +40,16 @@ $propertyWindow->getProperty('id');
 $propertyWindow->getProperties('limit', 'offset');
 
 foreach ($properties as $property) {
-    $street = $property->getStreet();
+    $street      = $property->getStreet();
+    $houseNumber = $property->getHouseNumber();
+    $postcode    = $property->getPostcode();
+    $city        = $property->getCity();
+    $country     = $property->getCountry();
+    $price       = $property->getPrice();
+    $soldPrice   = $property->getSoldPrice();
+    $lat         = $property->getLat();
+    $lng         = $property->getLng();
+    $archived    = $property->geArchived();
 }
 ```
 
