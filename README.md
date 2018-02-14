@@ -20,7 +20,7 @@ $ composer init
 $ composer require propertywindow/client
 ```
 
-## Usage
+## Setup
 
 * Setup client with authentication details
 
@@ -28,6 +28,8 @@ $ composer require propertywindow/client
 use PropertyWindow\Client;
 $propertyWindow = new Client('email', 'password');
 ```
+
+## Usage
 
 * Get property
 ```php
