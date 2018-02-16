@@ -25,8 +25,19 @@ class Client extends Connection
      */
     public function getProperty(int $id): Property
     {
-        $parameters = ['id' => $id];
-        $response   = $this->call('/property', 'getProperty', $parameters);
+//        $ip      = '80.95.169.59';
+        $ip      = $_SERVER['REMOTE_ADDR'] ? : ($_SERVER['HTTP_X_FORWARDED_FOR'] ? : $_SERVER['HTTP_CLIENT_IP']);
+        $location = json_decode(file_get_contents('http://ipinfo.io/' . $ip .'/json'));
+
+        $parameters = [
+            'id'       => $id,
+            'ip'       => $ip,
+            'browser'  => $_SERVER['HTTP_USER_AGENT'],
+            'location' => $location->city,
+            'referrer' => $_SERVER['HTTP_REFERER'],
+        ];
+
+        $response = $this->call('/property', 'getProperty', $parameters);
 
         return PropertyMapper::toProperty($response);
     }

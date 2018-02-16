@@ -21,11 +21,6 @@ class Connection
     protected $baseUrl = 'https://engine.propertywindow.nl';
 
     /**
-     * @var array
-     */
-    public $token;
-
-    /**
      * @var Response
      */
     protected $response;
@@ -36,21 +31,20 @@ class Connection
     protected $decoded = [];
 
     /**
-     * @param string $email
-     * @param string $password
+     * @param string $token
      *
      * @throws \Exception
      */
-    public function __construct(string $email, string $password)
+    public function __construct(string $token)
     {
-        if (empty($this->token)) {
-            $this->generateToken($email, $password);
+        if (empty($token)) {
+            throw new \Exception('No token provided');
         }
 
         $this->client = new \GuzzleHttp\Client([
             'base_uri' => $this->baseUrl,
             'headers'  => [
-                'Authorization' => 'Basic ' . $this->token['token'],
+                'Authorization' => 'Basic ' . $token,
                 'Content-Type'  => 'application/json',
             ],
         ]);
@@ -96,24 +90,6 @@ class Connection
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     *
-     * @throws \Exception
-     */
-    protected function generateToken(string $email, string $password)
-    {
-        $client   = new \GuzzleHttp\Client();
-        $body     = $this->createBody('login', ['email' => $email, 'password' => $password]);
-        $response = $client->post($this->baseUrl . '/authentication/login', $body);
-
-        $this->setDecoded(json_decode($response->getBody()->getContents(), true));
-        $this->checkResponse();
-
-        $this->token = array_key_exists('result', $this->decoded) ? $this->decoded['result'] : null;
-    }
-
-    /**
      * @throws \Exception
      */
     public function checkResponse()
@@ -121,14 +97,6 @@ class Connection
         if (array_key_exists('error', $this->getDecoded())) {
             throw new \Exception($this->getDecoded()['error']['message']);
         }
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getToken(): ?array
-    {
-        return $this->token;
     }
 
     /**

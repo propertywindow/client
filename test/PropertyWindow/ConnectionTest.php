@@ -17,20 +17,19 @@ class ConnectionTest extends TestCase
     private $client;
 
     /**
+     * @var string
+     */
+    private $token = 'eyJ1c2VyIjozMSwicGFzc3dvcmQiOiIwMWNkYzgxYzFlOTYxZjA0YjJmZWVkM2ZmNDhhZTI0MiIsInRpbWVzdGFtcCI6MTUxODc4NDUzNiwic2lnbmF0dXJlIjoiZDc3ZGVkNzBhN2M1Y2RkNjMyOTJiNThmOTZiZDk1NTI4MjAwMDY0MCJ9';
+
+    /**
      * @return void
      */
     public function setUp(): void
     {
         // todo: Mock connection
-        $this->client = new Client('michael@annan.co.uk', 'michael');
+        $this->client = new Client($this->token);
 
         $this->assertInstanceOf(Client::class, $this->client);
-    }
-
-    public function testGetToken()
-    {
-        $this->assertArrayHasKey('user_id', $this->client->getToken());
-        $this->assertArrayHasKey('token', $this->client->getToken());
     }
 
     public function testGetDecoded()
@@ -47,13 +46,13 @@ class ConnectionTest extends TestCase
         $this->expectExceptionMessage('Could not find property with id: 99999');
 
         try {
-            $this->client = new Client('', '');
+            $this->client = new Client('');
             $this->client->checkResponse();
         } catch (\Exception $exception) {
-            $this->assertEquals('Could not authenticate user', $exception->getMessage());
+            $this->assertEquals('No token provided', $exception->getMessage());
         }
 
-        $this->client = new Client('michael@annan.co.uk', 'michael');
+        $this->client = new Client($this->token);
         $this->client->getProperty(99999);
     }
 

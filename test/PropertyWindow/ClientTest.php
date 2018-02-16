@@ -21,11 +21,16 @@ class ClientTest extends TestCase
     private $client;
 
     /**
+     * @var string
+     */
+    private $token = 'eyJ1c2VyIjozMSwicGFzc3dvcmQiOiIwMWNkYzgxYzFlOTYxZjA0YjJmZWVkM2ZmNDhhZTI0MiIsInRpbWVzdGFtcCI6MTUxODc4NDUzNiwic2lnbmF0dXJlIjoiZDc3ZGVkNzBhN2M1Y2RkNjMyOTJiNThmOTZiZDk1NTI4MjAwMDY0MCJ9';
+
+    /**
      * @return void
      */
     public function setUp(): void
     {
-        $this->client = new Client('michael@annan.co.uk', 'michael');
+        $this->client = new Client($this->token);
     }
 
     /**

@@ -22,11 +22,11 @@ $ composer require propertywindow/client
 
 ## Setup
 
-* Setup client with authentication details
+> Setup client with authentication details
 
 ```php
 use PropertyWindow\Client;
-$propertyWindow = new Client('email', 'password');
+$propertyWindow = new Client('token');
 ```
 
 ## Usage
