@@ -42,18 +42,12 @@ class ConnectionTest extends TestCase
      */
     public function testCheckResponse(): void
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Could not find property with id: 99999');
-
         try {
             $this->client = new Client('');
             $this->client->checkResponse();
         } catch (\Exception $exception) {
             $this->assertEquals('No token provided', $exception->getMessage());
         }
-
-        $this->client = new Client($this->token);
-        $this->client->getProperty(99999);
     }
 
     public function tearDown()
