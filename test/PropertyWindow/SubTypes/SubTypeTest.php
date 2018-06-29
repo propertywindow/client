@@ -7,9 +7,6 @@ use PHPUnit\Framework\TestCase;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\Types\Type;
 
-/**
- *  SubType Test
- */
 class SubTypeTest extends TestCase
 {
     /**

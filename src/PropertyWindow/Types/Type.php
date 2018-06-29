@@ -3,9 +3,6 @@ declare(strict_types = 1);
 
 namespace PropertyWindow\Types;
 
-/**
- * Class Type
- */
 class Type
 {
     /**

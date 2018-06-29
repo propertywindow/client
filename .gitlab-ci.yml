@@ -1,0 +1,31 @@
+image: propertywindow/php
+
+cache:
+  paths:
+  - vendor/
+
+services:
+- mysql
+
+variables:
+  MYSQL_DATABASE: gitlab_test
+  MYSQL_ROOT_PASSWORD: mysql
+
+stages:
+  - test
+
+Codesniffer:
+  stage: test
+  before_script:
+    - composer install --prefer-source --no-interaction --dev
+  script:
+    - echo "Running tests"
+    - vendor/bin/phpcs --standard=PSR2 src/ test/
+
+PHP Unit:
+  stage: test
+  before_script:
+    - composer install --prefer-source --no-interaction --dev
+  script:
+    - echo "Running tests"
+    - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never

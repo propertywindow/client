@@ -6,9 +6,6 @@ namespace PropertyWindow\Properties;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\Terms\Terms;
 
-/**
- * Class PropertyMapper
- */
 class PropertyMapper
 {
     /**

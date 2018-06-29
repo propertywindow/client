@@ -1,3 +1,9 @@
+filter:
+  excluded_paths:
+    - "src/*Bundle/DataFixtures/ORM/"
+    - "app/"
+    - "web/"
+
 before_commands:
     - "composer install"
 
@@ -5,6 +11,13 @@ checks:
     php: true
 
 build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=.coverage'
+                coverage:
+                    file: '.coverage'
+                    format: 'clover'
     environment:
         timezone: 'Europe/Amsterdam'
         php:
@@ -12,61 +25,41 @@ build:
             ini:
                 'date.timezone': 'Europe/Amsterdam'
     dependencies:
+        # Runs before inferred commands
         before: []
+        # Overwrites inferred commands
         override: []
+        # Runs after inferred commands
         after: []
+    # Run after dependencies
     project_setup:
         before: []
         override: []
         after: []
-    tests:
-        override:
-          - command: 'vendor/bin/phpunit --coverage-clover=.coverage'
-            coverage:
-              file: '.coverage'
-              format: 'clover'
     nodes:
         tests: true
         analysis:
             tests:
                 override:
-                    -
-                        command: phpcs-run --standard=phpcs.xml
-                        use_website_config: false
+                    - phpcs-run
                     - php-scrutinizer-run
 
-tools:
-  php_code_coverage: true
-  php_code_sniffer:
-      enabled: true
-      config:
-          standard: PSR2
-      filter:
-          paths: ["src/*", "test/*"]
-  php_cpd:
-      enabled: true
-      excluded_dirs: ["test", "vendor"]
-  php_cs_fixer:
-      enabled: true
-      config:
-          level: all
-      filter:
-          paths: ["src/*", "test/*"]
-  php_loc:
-      enabled: true
-      excluded_dirs: ["test", "vendor"]
-  php_mess_detector:
-      enabled: true
-      filter:
-          paths: ["src/*"]
-  php_pdepend:
-      enabled: true
-      excluded_dirs: ["test", "vendor"]
-  php_analyzer: true
-  php_analyzer:
-      filter:
-          paths: ["src/*", "test/*"]
-  sensiolabs_security_checker: true
-
 build_failure_conditions:
+  # No critical issue is introduced (existing ones are tolerated)
+  - 'issues.label("coding-style").exists'
+  # No new critical issue is introduced (existing ones are tolerated)
   - 'issues.label("coding-style").new.exists'
+  # No critical issue is present
+  - 'issues.severity(= MINOR).exists'
+  # No new critical issue is introduced (existing ones are tolerated)
+  - 'issues.severity(= MINOR).new.exists'
+  # Class has no tests
+  - 'classes.metric("php_code_coverage.coverage", = 0).exists'
+  # Rating is C or worse for existing classes
+  - 'elements.rating(<= C).exists'
+  # Rating is C or worse is introduced
+  - 'elements.rating(<= C).new.exists'
+  # Code Quality Rating drops below 8
+  - 'project.metric("scrutinizer.quality", < 8)'
+  # Code Coverage decreased from previous inspection
+  - 'project.metric_change("scrutinizer.test_coverage", < 0)'

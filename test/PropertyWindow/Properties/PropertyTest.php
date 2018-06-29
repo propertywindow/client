@@ -8,9 +8,6 @@ use PropertyWindow\Properties\Property;
 use PropertyWindow\SubTypes\SubType;
 use PropertyWindow\Terms\Terms;
 
-/**
- *  Property Test
- */
 class PropertyTest extends TestCase
 {
     /**

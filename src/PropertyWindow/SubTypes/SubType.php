@@ -5,9 +5,6 @@ namespace PropertyWindow\SubTypes;
 
 use PropertyWindow\Types\Type;
 
-/**
- * Class SubType
- */
 class SubType
 {
     /**

@@ -6,9 +6,6 @@ namespace Tests\PropertyWindow;
 use PHPUnit\Framework\TestCase;
 use PropertyWindow\Client;
 
-/**
- *  Connection Test
- */
 class ConnectionTest extends TestCase
 {
     /**
@@ -19,10 +16,11 @@ class ConnectionTest extends TestCase
     /**
      * @var string
      */
-    private $token = 'eyJ1c2VyIjozMSwicGFzc3dvcmQiOiIwMWNkYzgxYzFlOTYxZjA0YjJmZWVkM2ZmNDhhZTI0MiIsInRpbWVzdGFtcCI6MTUxODc4NDUzNiwic2lnbmF0dXJlIjoiZDc3ZGVkNzBhN2M1Y2RkNjMyOTJiNThmOTZiZDk1NTI4MjAwMDY0MCJ9';
+    private $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzAyNzE1MzMsImp0aSI6IldjbVwvNENUYnJwdUNLSmFLeDhJTW5PcFwvSlwvY0JcL2Vkc0NhMlVuSDF2Vm9zPSIsIm5iZiI6MTUzMDI3MTU0MywiZXhwIjoxNTMwMjcxNjAzLCJ1aWQiOjEwLCJ1Zm4iOiJNaWNoYWVsIEFubmFuIiwiYXZ0IjoiMlwvdXNlcnNcLzEwLmpwZyJ9.qcX5xF36XAKxLv1URHjczYLOwYqTjYv_U4KXLJLUCeY';
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function setUp(): void
     {

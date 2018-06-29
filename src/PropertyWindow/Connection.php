@@ -5,9 +5,6 @@ namespace PropertyWindow;
 
 use GuzzleHttp\Psr7\Response;
 
-/**
- * Class Connection
- */
 class Connection
 {
     /**
@@ -44,7 +41,7 @@ class Connection
         $this->client = new \GuzzleHttp\Client([
             'base_uri' => $this->baseUrl,
             'headers'  => [
-                'Authorization' => 'Basic ' . $token,
+                'Authorization' => 'Bearer ' . $token,
                 'Content-Type'  => 'application/json',
             ],
         ]);

@@ -6,9 +6,6 @@ namespace Tests\PropertyWindow\Types;
 use PHPUnit\Framework\TestCase;
 use PropertyWindow\Terms\Terms;
 
-/**
- *  Terms Test
- */
 class TermsTest extends TestCase
 {
     /**

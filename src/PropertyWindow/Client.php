@@ -12,9 +12,6 @@ use PropertyWindow\Terms\TermsMapper;
 use PropertyWindow\Types\Type;
 use PropertyWindow\Types\TypeMapper;
 
-/**
- * Class Client
- */
 class Client extends Connection
 {
     /**

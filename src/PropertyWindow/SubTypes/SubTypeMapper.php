@@ -5,9 +5,6 @@ namespace PropertyWindow\SubTypes;
 
 use PropertyWindow\Types\Type;
 
-/**
- * Class SubTypeMapper
- */
 class SubTypeMapper
 {
     /**

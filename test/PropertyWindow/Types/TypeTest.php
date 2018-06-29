@@ -6,9 +6,6 @@ namespace Tests\PropertyWindow\Types;
 use PHPUnit\Framework\TestCase;
 use PropertyWindow\Types\Type;
 
-/**
- *  Type Test
- */
 class TypeTest extends TestCase
 {
     /**
